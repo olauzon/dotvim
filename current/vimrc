@@ -1,10 +1,20 @@
 " set guifont=Monospace\ 14
-set guifont=Monaco:h21
-set list
+set guifont=Monaco:h24
+
 set number
 set go-=T
 
+set hidden
+
+" Show invisible characters
+set list
+" Shortcut to toggle `set list`
+nmap <leader>l :set list!<CR>
+" Use the same symbols as TextMate for tabstops and EOLs
+set listchars=tab:▸\ ,eol:¬
+
 :syntax on
+
 filetype plugin indent on
 
 augroup myfiletypes
@@ -14,17 +24,16 @@ augroup myfiletypes
   autocmd FileType ruby,haml,eruby,yaml set ai sw=2 sts=2 et
   autocmd BufNewFile,BufRead *.json_builder setf ruby
   autocmd BufNewFile,BufRead *.red setf ruby
+  autocmd BufNewFile,BufRead *.erl set ai sw=4 sts=4 et
+  autocmd BufNewFile,BufRead *.js set ft=javascript.jquery
 augroup END
 
-au BufNewFile,BufRead *.erl set ai sw=4 sts=4 et
-
-set ai
+set ts=2
 set sts=2
 set sw=2
 set autoindent
 set smarttab
-
-set bg=dark
+set expandtab
 
 :colorscheme vividchalk
 
@@ -32,5 +41,11 @@ set bg=dark
 nmap <leader>v :vsplit<CR> <C-w><C-w>
 nmap <leader>s :split<CR> <C-w><C-w>
 
-" nerd tree
+" Shortcut to toggle nerd tree
 map <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
+
+" Shortcut to delete trailing whitespace
+nmap <leader>w :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
+
+" Highlight lines longer than 80 characters
+match ErrorMsg '\%>80v.\+'
