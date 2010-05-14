@@ -1,8 +1,5 @@
 rm -rf ~/.vimrc
-ln -s ~/dotvim/current/vimrc ~/.vimrc
-
-#rm -rf ~/.gvimrc
-#ln -s ~/dotvim/current/gvimrc ~/.gvimrc
+ln -s ~/dotvim/vimrc ~/.vimrc
 
 rm -rf ~/.vim
-ln -s ~/dotvim/current/vim ~/.vim
+ln -s ~/dotvim/vim ~/.vim
