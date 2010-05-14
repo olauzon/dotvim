@@ -1,6 +1,6 @@
 " fugitive.vim - A Git wrapper so awesome, it should be illegal
 " Maintainer:   Tim Pope <vimNOSPAM@tpope.org>
-" Version:      1.0
+" Version:      1.1
 " GetLatestVimScripts: 2975 1 :AutoInstall: fugitive.vim
 
 if exists('g:loaded_fugitive') || &cp
@@ -448,7 +448,7 @@ call s:add_methods('buffer',['getvar','setvar','getline','repo','type','name','c
 " }}}1
 " Git {{{1
 
-call s:command("-bar -bang -nargs=? -complete=customlist,s:GitComplete Git :call s:Git(<bang>0,<q-args>)")
+call s:command("-bang -nargs=? -complete=customlist,s:GitComplete Git :execute s:Git(<bang>0,<q-args>)")
 
 function! s:ExecuteInTree(cmd) abort
   let cd = exists('*haslocaldir') && haslocaldir() ? 'lcd ' : 'cd '
@@ -466,8 +466,10 @@ function! s:Git(bang,cmd) abort
   if has('gui_running') && !has('win32')
     let git .= ' --no-pager'
   endif
-  call s:ExecuteInTree('!'.git.' '.a:cmd)
+  let cmd = matchstr(a:cmd,'\v\C.{-}%($|\\@<!%(\\\\)*\|)@=')
+  call s:ExecuteInTree('!'.git.' '.cmd)
   call fugitive#reload_status()
+  return matchstr(a:cmd,'\v\C\\@<!%(\\\\)*\|\zs.*')
 endfunction
 
 function! s:GitComplete(A,L,P) abort
@@ -534,6 +536,27 @@ function! fugitive#reload_status() abort
       endif
     endfor
   endfor
+endfunction
+
+function! s:StageDiff() abort
+  let section = getline(search('^# .*:$','bnW'))
+  let line = getline('.')
+  let filename = matchstr(line,'^#\t\%([[:alpha:] ]\+: *\)\=\zs.*')
+  if filename ==# '' && section == '# Changes to be committed:'
+    return 'Git diff --cached'
+  elseif filename ==# ''
+    return 'Git diff'
+  elseif line =~# '^#\trenamed:' && filename =~ ' -> '
+    let [old, new] = split(filename,' -> ')
+    execute 'Gedit '.s:fnameescape(':0:'.new)
+    return 'Gdiff HEAD:'.s:fnameescape(old)
+  elseif section == '# Changes to be committed:'
+    execute 'Gedit '.s:fnameescape(':0:'.filename)
+    return 'Gdiff -'
+  else
+    execute 'Gedit '.s:fnameescape('/'.filename)
+    return 'Gdiff'
+  endif
 endfunction
 
 function! s:StageToggle(lnum1,lnum2) abort
@@ -738,7 +761,7 @@ if !exists('g:fugitive_summary_format')
   let g:fugitive_summary_format = '%s'
 endif
 
-call s:command("-bar -bang -nargs=? -complete=customlist,s:EditComplete Ggrep :execute s:Grep(<bang>0,<q-args>)")
+call s:command("-bang -nargs=? -complete=customlist,s:EditComplete Ggrep :execute s:Grep(<bang>0,<q-args>)")
 call s:command("-bar -bang -nargs=* -complete=customlist,s:EditComplete Glog :execute s:Log('grep<bang>',<f-args>)")
 
 function! s:Grep(bang,arg) abort
@@ -750,7 +773,7 @@ function! s:Grep(bang,arg) abort
     execute cd.'`=s:repo().tree()`'
     let &grepprg = s:repo().git_command('--no-pager', 'grep', '-n')
     let &grepformat = '%f:%l:%m'
-    exe 'grep! '.a:arg
+    exe 'grep! '.escape(matchstr(a:arg,'\v\C.{-}%($|[''" ]\@=\|)@='),'|')
     let list = getqflist()
     for entry in list
       if bufname(entry.bufnr) =~ ':'
@@ -763,9 +786,9 @@ function! s:Grep(bang,arg) abort
     endfor
     call setqflist(list,'r')
     if !a:bang && !empty(list)
-      return 'cfirst'
+      return 'cfirst'.matchstr(a:arg,'\v\C[''" ]\zs\|.*')
     else
-      return ''
+      return matchstr(a:arg,'\v\C[''" ]\|\zs.*')
     endif
   finally
     let &grepprg = grepprg
@@ -973,12 +996,20 @@ endfunction
 " }}}1
 " Gdiff {{{1
 
-call s:command("-bar -nargs=? -complete=customlist,s:EditComplete Gdiff :execute s:Diff(<f-args>)")
+call s:command("-bang -bar -nargs=? -complete=customlist,s:EditComplete Gdiff :execute s:Diff(<bang>0,<f-args>)")
 
 augroup fugitive_diff
-  autocmd BufWinLeave * if winnr('$') == 2 && &diff && getbufvar(+expand('<abuf>'), 'git_dir') !=# '' | diffoff! | endif
-  autocmd BufWinEnter * if winnr('$') == 1 && &diff && getbufvar(+expand('<abuf>'), 'git_dir') !=# '' | diffoff | endif
+  autocmd BufWinLeave * if s:diff_window_count() == 2 && &diff && getbufvar(+expand('<abuf>'), 'git_dir') !=# '' | diffoff! | endif
+  autocmd BufWinEnter * if s:diff_window_count() == 1 && &diff && getbufvar(+expand('<abuf>'), 'git_dir') !=# '' | diffoff | endif
 augroup END
+
+function! s:diff_window_count()
+  let c = 0
+  for nr in range(1,winnr('$'))
+    let c += getwinvar(nr,'&diff')
+  endfor
+  return c
+endfunction
 
 function! s:buffer_compare_age(commit) dict abort
   let scores = {':0': 1, ':1': 2, ':2': 3, ':': 4, ':3': 5}
@@ -1002,14 +1033,15 @@ endfunction
 
 call s:add_methods('buffer',['compare_age'])
 
-function! s:Diff(...) abort
+function! s:Diff(bang,...) abort
+  let split = a:bang ? 'split' : 'vsplit'
   if exists(':DiffGitCached')
     return 'DiffGitCached'
   elseif (!a:0 || a:1 == ':') && s:buffer().commit() =~# '^[0-1]\=$' && s:repo().git_chomp_in_tree('ls-files', '--unmerged', '--', s:buffer().path()) !=# ''
-      leftabove vsplit `=fugitive#buffer().repo().translate(s:buffer().expand(':2'))`
+      execute 'leftabove '.split.' `=fugitive#buffer().repo().translate(s:buffer().expand('':2''))`'
       diffthis
       wincmd p
-      rightbelow vsplit `=fugitive#buffer().repo().translate(s:buffer().expand(':3'))`
+      execute 'rightbelow '.split.' `=fugitive#buffer().repo().translate(s:buffer().expand('':3''))`'
       diffthis
       wincmd p
       diffthis
@@ -1040,9 +1072,9 @@ function! s:Diff(...) abort
     let spec = s:repo().translate(file)
     let commit = matchstr(spec,'\C[^:/]//\zs\x\+')
     if s:buffer().compare_age(commit) < 0
-      rightbelow vsplit `=spec`
+      execute 'rightbelow '.split.' `=spec`'
     else
-      leftabove vsplit `=spec`
+      execute 'leftabove '.split.' `=spec`'
     endif
     diffthis
     wincmd p
@@ -1078,7 +1110,7 @@ function! s:Move(force,destination)
   if s:buffer().commit() == ''
     return 'saveas! '.s:fnameescape(destination)
   else
-    return 'file '.s:fnameescape(s:repo.translate(':0:'.destination)
+    return 'file '.s:fnameescape(s:repo().translate(':0:'.destination)
   endif
 endfunction
 
@@ -1334,6 +1366,7 @@ function! s:BufReadIndex()
     setlocal ro noma nomod nomodeline bufhidden=delete
     nnoremap <buffer> <silent> a :<C-U>let b:fugitive_display_format += 1<Bar>exe <SID>BufReadIndex()<CR>
     nnoremap <buffer> <silent> i :<C-U>let b:fugitive_display_format -= 1<Bar>exe <SID>BufReadIndex()<CR>
+    nnoremap <buffer> <silent> D :<C-U>execute <SID>StageDiff()<CR>
     nnoremap <buffer> <silent> - :<C-U>execute <SID>StageToggle(line('.'),line('.')+v:count1-1)<CR>
     xnoremap <buffer> <silent> - :<C-U>execute <SID>StageToggle(line("'<"),line("'>"))<CR>
     nnoremap <buffer> <silent> p :<C-U>execute <SID>StagePatch(line('.'),line('.')+v:count1-1)<CR>
