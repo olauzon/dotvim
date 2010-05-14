@@ -1,5 +1,4 @@
-" set guifont=Monospace\ 14
-set guifont=Monaco:h24
+set guifont=Monaco:h26
 
 set number
 set go-=T
