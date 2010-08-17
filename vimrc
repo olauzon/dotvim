@@ -53,3 +53,5 @@ nmap <leader>w :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 
 " Highlight lines longer than 80 characters
 match ErrorMsg '\%>80v.\+'
+
+inoremap kj <Esc>
