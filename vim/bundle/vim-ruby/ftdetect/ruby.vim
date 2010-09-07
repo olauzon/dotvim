@@ -23,7 +23,10 @@ au BufNewFile,BufRead Capfile				set filetype=ruby
 au BufNewFile,BufRead Gemfile				set filetype=ruby
 
 " Autotest
-au BufNewFile,BufRead .autotest			set filetype=ruby
+au BufNewFile,BufRead .autotest				set filetype=ruby
 
 " eRuby
 au BufNewFile,BufRead *.erb,*.rhtml			set filetype=eruby
+
+" Thor
+au BufNewFile,BufRead [tT]horfile,*.thor		set filetype=ruby

@@ -30,7 +30,13 @@ vim_org_scripts = [
 #  ["IndexedSearch", "7062",  "plugin"],
 #  ["gist",          "12732", "plugin"],
   ["jquery",          "12107",  "syntax"],
-  ["minibufexpl",     "3640",   "plugin"]
+  ["minibufexpl",     "3640",   "plugin"],
+  ["vimclojure",      "11066",  "plugin"]
+]
+
+# TODO add support for bitbucket mercurial repos
+bitbucket_bundles = [
+  "https://bitbucket.org/kotarak/vimclojure/get/tip.tar.gz"
 ]
 
 require 'fileutils'
