@@ -24,14 +24,15 @@ git_bundles = [
 #  "git://github.com/tsaleh/vim-supertab.git",
 #  "git://github.com/tsaleh/vim-tcomment.git",
   "git://github.com/vim-ruby/vim-ruby.git",
+  "git://github.com/scrooloose/syntastic.git"
 ]
 
 vim_org_scripts = [
 #  ["IndexedSearch", "7062",  "plugin"],
 #  ["gist",          "12732", "plugin"],
   ["jquery",          "12107",  "syntax"],
-  ["minibufexpl",     "3640",   "plugin"],
-  ["vimclojure",      "11066",  "plugin"]
+  ["minibufexpl",     "3640",   "plugin"]#,
+#  ["vimclojure",      "11066",  "plugin"]
 ]
 
 # TODO add support for bitbucket mercurial repos
@@ -44,10 +45,13 @@ require 'open-uri'
 
 bundles_dir = File.join(File.dirname(__FILE__), "bundle")
 
+# TODO add support for updating these bundles
+exclude_bundles = ['vimclojure', 'vim-peepopen']
+
 FileUtils.cd(bundles_dir)
 
 puts "Trashing everything (lookout!)"
-Dir["*"].each {|d| FileUtils.rm_rf d }
+Dir["*"].each {|d| FileUtils.rm_rf(d) unless exclude_bundles.inlcude?(d) }
 
 git_bundles.each do |url|
   dir = url.split('/').last.sub(/\.git$/, '')
