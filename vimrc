@@ -1,4 +1,4 @@
-set guifont=Monaco:h22
+set guifont=Monaco:h20
 
 set number
 set go-=T
@@ -10,6 +10,9 @@ set hidden
 filetype off
 call pathogen#helptags()
 call pathogen#runtime_append_all_bundles()
+
+let g:syntastic_enable_signs=1
+let g:syntastic_auto_loc_list=1
 
 " Show invisible characters
 set list
