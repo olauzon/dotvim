@@ -33,6 +33,7 @@ augroup myfiletypes
   autocmd BufNewFile,BufRead *.red setf ruby
   autocmd BufNewFile,BufRead *.erl set ai sw=4 sts=4 et
   autocmd BufNewFile,BufRead *.js set ft=javascript.jquery
+  autocmd BufNewFile,Bufread *.json set ft=json
 augroup END
 
 set ts=2

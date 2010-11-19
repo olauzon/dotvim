@@ -24,14 +24,16 @@ git_bundles = [
 #  "git://github.com/tsaleh/vim-supertab.git",
 #  "git://github.com/tsaleh/vim-tcomment.git",
   "git://github.com/vim-ruby/vim-ruby.git",
-  "git://github.com/scrooloose/syntastic.git"
+  "git://github.com/scrooloose/syntastic.git",
+  "git://github.com/nelstrom/vim-mac-classic-theme.git"
 ]
 
 vim_org_scripts = [
 #  ["IndexedSearch", "7062",  "plugin"],
 #  ["gist",          "12732", "plugin"],
   ["jquery",          "12107",  "syntax"],
-  ["minibufexpl",     "3640",   "plugin"]#,
+  ["minibufexpl",     "3640",   "plugin"],
+  ['json',            "10853",  "syntax"]
 #  ["vimclojure",      "11066",  "plugin"]
 ]
 
