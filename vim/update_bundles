@@ -25,7 +25,8 @@ git_bundles = [
 #  "git://github.com/tsaleh/vim-tcomment.git",
   "git://github.com/vim-ruby/vim-ruby.git",
   "git://github.com/scrooloose/syntastic.git",
-  "git://github.com/nelstrom/vim-mac-classic-theme.git"
+  "git://github.com/nelstrom/vim-mac-classic-theme.git",
+  "git://github.com/Raimondi/delimitMate.git"
 ]
 
 vim_org_scripts = [
