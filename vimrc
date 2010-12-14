@@ -1,4 +1,4 @@
-set guifont=Monaco:h20
+set guifont=Monaco:h16
 
 set number
 set go-=T
