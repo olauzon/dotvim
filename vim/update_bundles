@@ -49,12 +49,16 @@ require 'open-uri'
 bundles_dir = File.join(File.dirname(__FILE__), "bundle")
 
 # TODO add support for updating these bundles
-exclude_bundles = ['vimclojure', 'vim-peepopen']
+exclude_bundles = [
+                    'vimclojure',
+                    'vim-peepopen',
+                    'vim-latex-1.8.23-20101027-r1112'
+                  ]
 
 FileUtils.cd(bundles_dir)
 
 puts "Trashing everything (lookout!)"
-Dir["*"].each {|d| FileUtils.rm_rf(d) unless exclude_bundles.inlcude?(d) }
+Dir["*"].each { |d| FileUtils.rm_rf(d) unless exclude_bundles.inlcude?(d) }
 
 git_bundles.each do |url|
   dir = url.split('/').last.sub(/\.git$/, '')
