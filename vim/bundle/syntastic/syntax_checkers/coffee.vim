@@ -1,7 +1,7 @@
 "============================================================================
-"File:        perl.vim
+"File:        coffee.vim
 "Description: Syntax checking plugin for syntastic.vim
-"Maintainer:  Anthony Carapetis <anthony.carapetis at gmail dot com>
+"Maintainer:  Lincoln Stoll <l@lds.li>
 "License:     This program is free software. It comes without any warranty,
 "             to the extent permitted by applicable law. You can redistribute
 "             it and/or modify it under the terms of the Do What The Fuck You
@@ -9,27 +9,19 @@
 "             See http://sam.zoy.org/wtfpl/COPYING for more details.
 "
 "============================================================================
-
-" This checker requires efm_perl.pl, which is distributed with Vim version
-" seven and greater, as far as I know.
-
-if exists("loaded_perl_syntax_checker")
+if exists("loaded_coffee_syntax_checker")
     finish
 endif
-let loaded_perl_syntax_checker = 1
+let loaded_coffee_syntax_checker = 1
 
-"bail if the user doesnt have perl installed
-if !executable("perl")
+"bail if the user doesnt have ruby installed
+if !executable("coffee")
     finish
 endif
 
-if !exists("g:syntastic_perl_efm_program")
-    let g:syntastic_perl_efm_program = $VIMRUNTIME.'/tools/efm_perl.pl -c'
-endif
-
-function! SyntaxCheckers_perl_GetLocList()
-    let makeprg = g:syntastic_perl_efm_program . ' ' . shellescape(expand('%'))
-    let errorformat =  '%f:%l:%m'
+function! SyntaxCheckers_coffee_GetLocList()
+    let makeprg = 'coffee -c -l -o /dev/null %'
+    let errorformat =  '%EError: In %f\, Parse error on line %l: %m,%EError: In %f\, %m on line %l,%W%f(%l): lint warning: %m,%-Z%p^,%W%f(%l): warning: %m,%-Z%p^,%E%f(%l): SyntaxError: %m,%-Z%p^,%-G'
 
     return SyntasticMake({ 'makeprg': makeprg, 'errorformat': errorformat })
 endfunction
