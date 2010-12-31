@@ -58,7 +58,7 @@ exclude_bundles = [
 FileUtils.cd(bundles_dir)
 
 puts "Trashing everything (lookout!)"
-Dir["*"].each { |d| FileUtils.rm_rf(d) unless exclude_bundles.inlcude?(d) }
+Dir["*"].each { |d| FileUtils.rm_rf(d) unless exclude_bundles.include?(d) }
 
 git_bundles.each do |url|
   dir = url.split('/').last.sub(/\.git$/, '')
