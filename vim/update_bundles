@@ -20,14 +20,14 @@ git_bundles = [
   "git://github.com/tpope/vim-surround.git",
   "git://github.com/tpope/vim-vividchalk.git",
 #  "git://github.com/tsaleh/vim-align.git",
-#  "git://github.com/tsaleh/vim-shoulda.git",
 #  "git://github.com/tsaleh/vim-supertab.git",
 #  "git://github.com/tsaleh/vim-tcomment.git",
   "git://github.com/vim-ruby/vim-ruby.git",
   "git://github.com/scrooloose/syntastic.git",
   "git://github.com/nelstrom/vim-mac-classic-theme.git",
   "git://github.com/Raimondi/delimitMate.git",
-  "git://github.com/godlygeek/tabular.git"
+  "git://github.com/godlygeek/tabular.git",
+  "git://github.com/vim-scripts/greplace.vim.git"
 ]
 
 vim_org_scripts = [
