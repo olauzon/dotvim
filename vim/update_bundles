@@ -27,7 +27,8 @@ git_bundles = [
   "git://github.com/nelstrom/vim-mac-classic-theme.git",
   "git://github.com/Raimondi/delimitMate.git",
   "git://github.com/godlygeek/tabular.git",
-  "git://github.com/vim-scripts/greplace.vim.git"
+  "git://github.com/vim-scripts/greplace.vim.git",
+  "git://github.com/hallettj/jslint.vim.git"
 ]
 
 vim_org_scripts = [
