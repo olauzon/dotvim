@@ -44,6 +44,9 @@ set smarttab
 set expandtab
 
 :colorscheme vividchalk
+set background=dark
+" :colorscheme solarized
+" :colorscheme mac_classic
 
 " window splitting mappings
 nmap <leader>v :vsplit<CR> <C-w><C-w>
