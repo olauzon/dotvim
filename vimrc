@@ -43,9 +43,9 @@ set autoindent
 set smarttab
 set expandtab
 
-:colorscheme vividchalk
+" :colorscheme vividchalk
 set background=dark
-" :colorscheme solarized
+:colorscheme solarized
 " :colorscheme mac_classic
 
 " window splitting mappings
