@@ -2259,7 +2259,7 @@ endfunction
 
 function! s:javascriptList(A,L,P)
   let list = rails#app().relglob('app/assets/javascripts/','**/*.js*','')
-  call map(list,'s:sub(v:val,"\\.js\%(\\.\\w+\)\=$","")')
+  call map(list,'s:sub(v:val,"\\.js\%(\\.\\w+\)*$","")')
   let list += rails#app().relglob("public/javascripts/","**/*",".js")
   return s:completion_filter(list,a:A)
 endfunction
@@ -3068,6 +3068,10 @@ function! s:readable_related(...) dict abort
     return "config/application.rb\nconfig/environment.rb"
   elseif f =~ '\<config/\%(application\|environment\)\.rb$'
     return "config/database.yml"
+  elseif f ==# 'Gemfile'
+    return 'Gemfile.lock'
+  elseif f ==# 'Gemfile.lock'
+    return 'Gemfile'
   elseif f =~ '\<db/migrate/'
     let migrations = sort(self.app().relglob('db/migrate/','*','.rb'))
     let me = matchstr(f,'\<db/migrate/\zs.*\ze\.rb$')
@@ -3554,7 +3558,7 @@ function! s:BufSyntax()
         syn keyword rubyRailsARCallbackMethod after_create after_destroy after_save after_update after_validation after_validation_on_create after_validation_on_update
         syn keyword rubyRailsARCallbackMethod around_create around_destroy around_save around_update
         syn keyword rubyRailsARCallbackMethod after_commit after_find after_initialize after_rollback after_touch
-        syn keyword rubyRailsARClassMethod attr_accessible attr_protected establish_connection set_inheritance_column set_locking_column set_primary_key set_sequence_name set_table_name
+        syn keyword rubyRailsARClassMethod attr_accessible attr_protected attr_readonly establish_connection set_inheritance_column set_locking_column set_primary_key set_sequence_name set_table_name
         syn keyword rubyRailsARValidationMethod validate validates validate_on_create validate_on_update validates_acceptance_of validates_associated validates_confirmation_of validates_each validates_exclusion_of validates_format_of validates_inclusion_of validates_length_of validates_numericality_of validates_presence_of validates_size_of validates_uniqueness_of
         syn keyword rubyRailsMethod logger
       endif
