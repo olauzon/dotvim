@@ -32,6 +32,7 @@ filetype plugin indent on
 augroup myfiletypes
   " Clear old autocmds in group
   autocmd!
+  autocmd BufNewFile,BufRead *.clj* setf clojure
   autocmd BufNewFile,BufRead *.json_builder setf ruby
   autocmd BufNewFile,BufRead *.red setf ruby
   autocmd BufNewFile,BufRead *.erl set ai sw=4 sts=4 et
@@ -80,3 +81,7 @@ let g:tex_flavor='latex'
 " type in \ref{fig: and press <C-n> you will automatically cycle through
 " all the figure labels. Very useful!
 set iskeyword+=:
+
+" Fix jslint.vim error according to
+" https://github.com/hallettj/jslint.vim/issues/13
+let $JS_CMD='node'
