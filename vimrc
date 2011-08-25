@@ -38,6 +38,7 @@ augroup myfiletypes
   autocmd BufNewFile,BufRead *.erl set ai sw=4 sts=4 et
   autocmd BufNewFile,BufRead *.js set ft=javascript.jquery
   autocmd BufNewFile,Bufread *.json set ft=json
+  autocmd BufNewFile,Bufread *.bones set ft=javascript
 augroup END
 
 set ts=2
@@ -63,7 +64,8 @@ map <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
 nmap <leader>w :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 
 " Highlight lines longer than 80 characters
-match ErrorMsg '\%>80v.\+'
+" match ErrorMsg '\%>80v.\+'
+set colorcolumn=81
 
 inoremap kj <Esc>
 
