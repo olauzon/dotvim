@@ -55,7 +55,8 @@ bundles_dir = File.join(File.dirname(__FILE__), "bundle")
 exclude_bundles = [
                     'vimclojure',
                     'vim-peepopen',
-                    'vim-latex-1.8.23-20101027-r1112'
+                    'vim-latex-1.8.23-20101027-r1112',
+                    'vim-r-plugin-110805'
                   ]
 
 FileUtils.cd(bundles_dir)
