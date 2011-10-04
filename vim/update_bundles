@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-# written by Tammer Saleh
+# originally written by Tammer Saleh
 # http://tammersaleh.com/posts/the-modern-vim-config-with-pathogen
 
 git_bundles = [ 
@@ -29,7 +29,8 @@ git_bundles = [
   "git://github.com/godlygeek/tabular.git",
   "git://github.com/vim-scripts/greplace.vim.git",
   "git://github.com/hallettj/jslint.vim.git",
-  "git://github.com/altercation/vim-colors-solarized.git"
+  "git://github.com/altercation/vim-colors-solarized.git",
+  "git://github.com/digitaltoad/vim-jade.git"
 ]
 
 vim_org_scripts = [
