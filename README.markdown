@@ -11,10 +11,10 @@ This installation will clone this dotvim repository to your home folder and dele
     cd
     git clone git://github.com/olauzon/dotvim.git
     cd dotvim
-    ./script/symlink.sh
+    ./script/symlink
 
 Updating bundles
 ----------------
 
-    cd ~/dotvim/vim
-    ./update_bundles
+    cd ~/dotvim
+    ./script/update_bundles

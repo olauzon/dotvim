@@ -1,1 +1,0 @@
-~/dotvim/script/symlink.sh

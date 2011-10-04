@@ -50,7 +50,7 @@ bitbucket_bundles = [
 require 'fileutils'
 require 'open-uri'
 
-bundles_dir = File.join(File.dirname(__FILE__), "bundle")
+bundles_dir = File.join(File.dirname(__FILE__), "..", "vim", "bundle")
 
 # TODO add support for updating these bundles
 exclude_bundles = [
