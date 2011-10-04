@@ -57,6 +57,12 @@ set background=dark
 nmap <leader>v :vsplit<CR> <C-w><C-w>
 nmap <leader>s :split<CR> <C-w><C-w>
 
+" NERDTree
+
+" 'wycats' style NERDTree
+let NERDTreeDirArrows = 1
+let NERDTreeMouseMode = 3
+
 " Shortcut to toggle nerd tree
 map <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
 
