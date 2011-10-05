@@ -30,7 +30,9 @@ git_bundles = [
   "git://github.com/vim-scripts/greplace.vim.git",
   "git://github.com/hallettj/jslint.vim.git",
   "git://github.com/altercation/vim-colors-solarized.git",
-  "git://github.com/digitaltoad/vim-jade.git"
+  "git://github.com/digitaltoad/vim-jade.git",
+  "git://github.com/vim-scripts/omlet.vim.git",
+  "git://github.com/kchmck/vim-coffee-script.git"
 ]
 
 vim_org_scripts = [
