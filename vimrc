@@ -1,12 +1,13 @@
 " set guifont=Monaco:h16
-set guifont=Menlo:h16
+" set guifont=Menlo:h16
 " http://www.google.com/webfonts/family?family=Lekton&subset=latin
-" set guifont=Lekton:h18
+set guifont=Lekton:h20
 
 set number
 set go-=T
 
 set hidden
+set nowrap
 
 " Needed on some linux distros.
 " see http://www.adamlowe.me/2009/12/vim-destroys-all-other-rails-editors.html
@@ -50,7 +51,10 @@ set expandtab
 
 " :colorscheme vividchalk
 set background=dark
-:colorscheme solarized
+:colorscheme aftereight
+" :colorscheme anotherdark
+" :colorscheme candycode
+" :colorscheme solarized
 " :colorscheme mac_classic
 
 " window splitting mappings
@@ -58,6 +62,7 @@ nmap <leader>v :vsplit<CR> <C-w><C-w>
 nmap <leader>s :split<CR> <C-w><C-w>
 
 " NERDTree
+let NERDTreeShowHidden=1
 
 " 'wycats' style NERDTree
 let NERDTreeDirArrows = 1

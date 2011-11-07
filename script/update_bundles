@@ -32,7 +32,9 @@ git_bundles = [
   "git://github.com/altercation/vim-colors-solarized.git",
   "git://github.com/digitaltoad/vim-jade.git",
   "git://github.com/vim-scripts/omlet.vim.git",
-  "git://github.com/kchmck/vim-coffee-script.git"
+  "git://github.com/kchmck/vim-coffee-script.git",
+  "git://github.com/vim-scripts/octave.vim--.git",
+  "git://github.com/vim-scripts/Color-Sampler-Pack.git"
 ]
 
 vim_org_scripts = [
@@ -59,7 +61,8 @@ exclude_bundles = [
                     'vimclojure',
                     'vim-peepopen',
                     'vim-latex-1.8.23-20101027-r1112',
-                    'vim-r-plugin-110805'
+                    'vim-r-plugin-110805',
+                    'vim-colors-olauzon' # https://github.com/olauzon/vim-colors
                   ]
 
 FileUtils.cd(bundles_dir)
