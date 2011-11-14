@@ -1,7 +1,7 @@
 " set guifont=Monaco:h16
 " set guifont=Menlo:h16
 " http://www.google.com/webfonts/family?family=Lekton&subset=latin
-set guifont=Lekton:h20
+set guifont=Lekton:h18
 
 set number
 set go-=T
