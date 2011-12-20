@@ -2,4 +2,5 @@
 *.sw?
 .netrwhist
 .VimballRecord
+cheatsheet.markdown
 vim/bundle/vim-peepopen

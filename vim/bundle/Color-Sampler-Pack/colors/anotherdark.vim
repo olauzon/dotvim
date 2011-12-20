@@ -70,7 +70,7 @@ hi Todo		guifg=orangered guibg=yellow2
 " color terminal definitions
 hi SpecialKey	ctermfg=darkgreen
 hi NonText	cterm=bold ctermfg=darkblue
-" hi Directory	ctermfg=darkcyan
+hi Directory	ctermfg=darkcyan
 hi ErrorMsg	cterm=bold ctermfg=7 ctermbg=1
 hi IncSearch	cterm=NONE ctermfg=yellow ctermbg=green
 hi Search	cterm=NONE ctermfg=grey ctermbg=blue
