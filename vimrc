@@ -98,3 +98,15 @@ set iskeyword+=:
 " Fix jslint.vim error according to
 " https://github.com/hallettj/jslint.vim/issues/13
 let $JS_CMD='node'
+
+" Remove scrollbars
+set go-=L
+set guioptions-=r
+
+" Fullscreen
+" :set fu
+
+" Text formatting with par http://www.nicemice.net/par/
+" brew install par
+set formatprg=par\ -w80r
+nmap <leader>f gqip<CR>
