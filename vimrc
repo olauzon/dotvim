@@ -40,6 +40,7 @@ augroup myfiletypes
   autocmd BufNewFile,BufRead *.js set ft=javascript.jquery
   autocmd BufNewFile,Bufread *.json set ft=json
   autocmd BufNewFile,Bufread *.bones set ft=javascript
+  autocmd BufNewFile,Bufread *.jst set ft=mustache
 augroup END
 
 set ts=2
@@ -78,6 +79,9 @@ nmap <leader>w :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 " match ErrorMsg '\%>80v.\+'
 set colorcolumn=81
 
+" Hard wrap at column 80
+set textwidth=80
+
 inoremap kj <Esc>
 
 " IMPORTANT: grep will sometimes skip displaying the file name if you
@@ -110,3 +114,5 @@ set guioptions-=r
 " brew install par
 set formatprg=par\ -w80r
 nmap <leader>f gqip<CR>
+
+set directory^=$HOME/.vim_swap// "put all swap files together in one place
