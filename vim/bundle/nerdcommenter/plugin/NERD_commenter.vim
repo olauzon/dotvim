@@ -79,6 +79,7 @@ let s:delimiterMap = {
     \ 'apachestyle': { 'left': '#' },
     \ 'asciidoc': { 'left': '//' },
     \ 'applescript': { 'left': '--', 'leftAlt': '(*', 'rightAlt': '*)' },
+    \ 'armasm': { 'left': ';' },
     \ 'asm68k': { 'left': ';' },
     \ 'asm': { 'left': ';', 'leftAlt': '#' },
     \ 'asn': { 'left': '--' },
@@ -97,6 +98,7 @@ let s:delimiterMap = {
     \ 'bindzone': { 'left': ';' },
     \ 'bst': { 'left': '%' },
     \ 'btm': { 'left': '::' },
+    \ 'cabal': { 'left': '--' },
     \ 'caos': { 'left': '*' },
     \ 'calibre': { 'left': '//' },
     \ 'catalog': { 'left': '--', 'right': '--' },
@@ -153,6 +155,7 @@ let s:delimiterMap = {
     \ 'focexec': { 'left': '-*' },
     \ 'form': { 'left': '*' },
     \ 'foxpro': { 'left': '*' },
+    \ 'fsharp': { 'left': '(*', 'right': '*)', 'leftAlt': '//' },
     \ 'fstab': { 'left': '#' },
     \ 'fvwm': { 'left': '#' },
     \ 'fx': { 'left': '//', 'leftAlt': '/*', 'rightAlt': '*/' },
@@ -324,6 +327,7 @@ let s:delimiterMap = {
     \ 'skill': { 'left': ';' },
     \ 'slang': { 'left': '%' },
     \ 'slice': { 'left': '//', 'leftAlt': '/*', 'rightAlt': '*/' },
+    \ 'slim': { 'left': '/', 'leftAlt': '/!' },
     \ 'slrnrc': { 'left': '%' },
     \ 'sm': { 'left': '#' },
     \ 'smarty': { 'left': '{*', 'right': '*}' },
@@ -1019,7 +1023,7 @@ function s:InvertComment(firstLine, lastLine)
     endwhile
 endfunction
 
-" Function: s:NERDComment(mode, type) function {{{2
+" Function: NERDComment(mode, type) function {{{2
 " This function is a Wrapper for the main commenting functions
 "
 " Args:
@@ -1028,7 +1032,7 @@ endfunction
 "   -type: the type of commenting requested. Can be 'Sexy', 'Invert',
 "    'Minimal', 'Toggle', 'AlignLeft', 'AlignBoth', 'Comment',
 "    'Nested', 'ToEOL', 'Append', 'Insert', 'Uncomment', 'Yank'
-function! s:NERDComment(mode, type) range
+function! NERDComment(mode, type) range
     let isVisual = a:mode =~ '[vsx]'
     " we want case sensitivity when commenting
     let oldIgnoreCase = &ignorecase
@@ -1050,9 +1054,9 @@ function! s:NERDComment(mode, type) range
 
     let countWasGiven = (!isVisual && firstLine != lastLine)
 
-    let forceNested = (a:type == 'Nested' || g:NERDDefaultNesting)
+    let forceNested = (a:type ==? 'Nested' || g:NERDDefaultNesting)
 
-    if a:type == 'Comment' || a:type == 'Nested'
+    if a:type ==? 'Comment' || a:type ==? 'Nested'
         if isVisual && visualmode() == "\<C-V>"
             call s:CommentBlock(firstLine, lastLine, firstCol, lastCol, forceNested)
         elseif isVisual && visualmode() == "v" && (g:NERDCommentWholeLinesInVMode==0 || (g:NERDCommentWholeLinesInVMode==2 && s:HasMultipartDelims()))
@@ -1061,19 +1065,19 @@ function! s:NERDComment(mode, type) range
             call s:CommentLines(forceNested, "none", firstLine, lastLine)
         endif
 
-    elseif a:type == 'AlignLeft' || a:type == 'AlignBoth'
+    elseif a:type ==? 'AlignLeft' || a:type ==? 'AlignBoth'
         let align = "none"
-        if a:type == "AlignLeft"
+        if a:type ==? "AlignLeft"
             let align = "left"
-        elseif a:type == "AlignBoth"
+        elseif a:type ==? "AlignBoth"
             let align = "both"
         endif
         call s:CommentLines(forceNested, align, firstLine, lastLine)
 
-    elseif a:type == 'Invert'
+    elseif a:type ==? 'Invert'
         call s:InvertComment(firstLine, lastLine)
 
-    elseif a:type == 'Sexy'
+    elseif a:type ==? 'Sexy'
         try
             call s:CommentLinesSexy(firstLine, lastLine)
         catch /NERDCommenter.Delimiters/
@@ -1082,7 +1086,7 @@ function! s:NERDComment(mode, type) range
             call s:NerdEcho("Sexy comment aborted. Nested sexy cannot be nested", 0)
         endtry
 
-    elseif a:type == 'Toggle'
+    elseif a:type ==? 'Toggle'
         let theLine = getline(firstLine)
 
         if s:IsInSexyComment(firstLine) || s:IsCommentedFromStartOfLine(s:Left(), theLine) || s:IsCommentedFromStartOfLine(s:Left({'alt': 1}), theLine)
@@ -1091,7 +1095,7 @@ function! s:NERDComment(mode, type) range
             call s:CommentLinesToggle(forceNested, firstLine, lastLine)
         endif
 
-    elseif a:type == 'Minimal'
+    elseif a:type ==? 'Minimal'
         try
             call s:CommentLinesMinimal(firstLine, lastLine)
         catch /NERDCommenter.Delimiters/
@@ -1100,21 +1104,21 @@ function! s:NERDComment(mode, type) range
             call s:NerdEcho("Place holders are required but disabled.", 0)
         endtry
 
-    elseif a:type == 'ToEOL'
+    elseif a:type ==? 'ToEOL'
         call s:SaveScreenState()
         call s:CommentBlock(firstLine, firstLine, col("."), col("$")-1, 1)
         call s:RestoreScreenState()
 
-    elseif a:type == 'Append'
+    elseif a:type ==? 'Append'
         call s:AppendCommentToLine()
 
-    elseif a:type == 'Insert'
+    elseif a:type ==? 'Insert'
         call s:PlaceDelimitersAndInsBetween()
 
-    elseif a:type == 'Uncomment'
+    elseif a:type ==? 'Uncomment'
         call s:UncommentLines(firstLine, lastLine)
 
-    elseif a:type == 'Yank'
+    elseif a:type ==? 'Yank'
         if isVisual
             normal! gvy
         elseif countWasGiven
@@ -1122,10 +1126,17 @@ function! s:NERDComment(mode, type) range
         else
             normal! yy
         endif
-        execute firstLine .','. lastLine .'call s:NERDComment("'. a:mode .'", "Comment")'
+        execute firstLine .','. lastLine .'call NERDComment("'. a:mode .'", "Comment")'
     endif
 
     let &ignorecase = oldIgnoreCase
+
+    if isVisual
+        let nlines = lastLine - firstLine
+        silent! call repeat#set("V" . nlines . "jo" . "\<Plug>NERDCommenter". a:type)
+    else
+        silent! call repeat#set("\<Plug>NERDCommenter". a:type)
+    endif
 endfunction
 
 " Function: s:PlaceDelimitersAndInsBetween() function {{{2
@@ -2698,9 +2709,9 @@ endfunction
 " also define mappings and show a:combo in the menu items.
 function! s:CreateMaps(modes, target, desc, combo)
     " Build up a map command like
-    " 'noremap <silent> <plug>NERDCommenterComment :call <SID>NERDComment("n", "Comment")'
+    " 'noremap <silent> <plug>NERDCommenterComment :call NERDComment("n", "Comment")'
     let plug = '<plug>NERDCommenter' . a:target
-    let plug_start = 'noremap <silent> ' . plug . ' :call <SID>NERDComment("'
+    let plug_start = 'noremap <silent> ' . plug . ' :call NERDComment("'
     let plug_end = '", "' . a:target . '")<cr>'
     " Build up a menu command like
     " 'menu <silent> comment.Comment<Tab>\\cc <plug>NERDCommenterComment'
@@ -2708,7 +2719,7 @@ function! s:CreateMaps(modes, target, desc, combo)
                 \ g:NERDMenuMode, '')
     let menu_command = 'menu <silent> ' . menuRoot . '.' . escape(a:desc, ' ')
     if strlen(a:combo)
-        let leader = exists('mapleader') ? mapleader : '\'
+        let leader = exists('g:mapleader') ? g:mapleader : '\'
         let menu_command .= '<Tab>' . escape(leader, '\') . a:combo
     endif
     let menu_command .= ' ' . (strlen(a:combo) ? plug : a:target)

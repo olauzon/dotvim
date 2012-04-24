@@ -1,3 +1,4 @@
 *.pyc
-*.vba
+*.vmb
+*.cache
 tags

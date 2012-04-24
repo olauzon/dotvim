@@ -36,7 +36,8 @@ git_bundles = [
   "git://github.com/vim-scripts/octave.vim--.git",
   "git://github.com/vim-scripts/Color-Sampler-Pack.git",
   "git://github.com/vim-scripts/VimClojure.git",
-  "git://github.com/Rip-Rip/clang_complete.git"
+  "git://github.com/Rip-Rip/clang_complete.git",
+  "git://github.com/juvenn/mustache.vim.git"
 ]
 
 vim_org_scripts = [
@@ -44,7 +45,8 @@ vim_org_scripts = [
 #  ["gist",          "12732", "plugin"],
   ["jquery",          "12107",  "syntax"],
   ["minibufexpl",     "3640",   "plugin"],
-  ['json',            "10853",  "syntax"]
+  ['json',            "10853",  "syntax"],
+  ['python',          '790',    'syntax']
 #  ["vimclojure",      "11066",  "plugin"]
 ]
 
