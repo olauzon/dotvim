@@ -1,19 +1,29 @@
 " set guifont=Monaco:h16
 " set guifont=Menlo:h16
 " http://www.google.com/webfonts/family?family=Lekton&subset=latin
-set guifont=Lekton:h18
+set guifont=Lekton:h16
+
+filetype off
+call pathogen#helptags()
+call pathogen#runtime_append_all_bundles()
+
+set background=dark
+" :colorscheme aftereight " vim-colors-olauzon based on anotherdark
+:colorscheme bella        " vim-colors-olauzon based on twilight
+" :colorscheme edward     " vim-colors-olauzon based on twilight
+" :colorscheme twilight
+" :colorscheme moria
+" :colorscheme anotherdark
+" :colorscheme candycode
+" :colorscheme solarized
+" :colorscheme mac_classic
+" :colorscheme vividchalk
 
 set number
 set go-=T
 
 set hidden
 set nowrap
-
-" Needed on some linux distros.
-" see http://www.adamlowe.me/2009/12/vim-destroys-all-other-rails-editors.html
-filetype off
-call pathogen#helptags()
-call pathogen#runtime_append_all_bundles()
 
 let g:syntastic_enable_signs=1
 let g:syntastic_auto_loc_list=1
@@ -27,7 +37,6 @@ nmap <leader>l :set list!<CR>
 set listchars=tab:▸\ ,eol:¬
 
 :syntax on
-
 filetype plugin indent on
 
 augroup myfiletypes
@@ -41,6 +50,7 @@ augroup myfiletypes
   autocmd BufNewFile,Bufread *.json set ft=json
   autocmd BufNewFile,Bufread *.bones set ft=javascript
   autocmd BufNewFile,Bufread *.jst set ft=mustache
+  autocmd BufNewFile,BufRead *.cql set syntax=cql
 augroup END
 
 set ts=2
@@ -49,14 +59,6 @@ set sw=2
 set autoindent
 set smarttab
 set expandtab
-
-" :colorscheme vividchalk
-set background=dark
-:colorscheme aftereight
-" :colorscheme anotherdark
-" :colorscheme candycode
-" :colorscheme solarized
-" :colorscheme mac_classic
 
 " window splitting mappings
 nmap <leader>v :vsplit<CR> <C-w><C-w>
@@ -74,13 +76,6 @@ map <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
 
 " Shortcut to delete trailing whitespace
 nmap <leader>w :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
-
-" Highlight lines longer than 80 characters
-" match ErrorMsg '\%>80v.\+'
-set colorcolumn=81
-
-" Hard wrap at column 80
-set textwidth=80
 
 inoremap kj <Esc>
 
@@ -116,3 +111,15 @@ set formatprg=par\ -w80r
 nmap <leader>f gqip<CR>
 
 set directory^=$HOME/.vim_swap// "put all swap files together in one place
+
+" Highlight lines longer than 80 characters
+" match ErrorMsg '\%>80v.\+'
+set colorcolumn=81
+
+" Hard wrap at column 80
+" set textwidth=80
+
+let vimclojure#HighlightBuiltins=1      " Highlight Clojure's builtins
+let vimclojure#ParenRainbow=1           " Rainbow parentheses'!
+
+let g:slime_target = "tmux"

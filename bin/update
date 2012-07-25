@@ -1,14 +1,11 @@
 #!/usr/bin/env ruby
-
-# originally written by Tammer Saleh
+# based on script originally written by Tammer Saleh
 # http://tammersaleh.com/posts/the-modern-vim-config-with-pathogen
 
-git_bundles = [ 
-#  "git://github.com/astashov/vim-ruby-debugger.git",
+git_bundles = [
   "git://github.com/msanders/snipmate.vim.git",
   "git://github.com/scrooloose/nerdtree.git",
   "git://github.com/scrooloose/nerdcommenter.git",
-#  "git://github.com/timcharper/textile.vim.git",
   "git://github.com/oscarh/vimerl.git",
   "git://github.com/tpope/vim-cucumber.git",
   "git://github.com/tpope/vim-fugitive.git",
@@ -37,17 +34,18 @@ git_bundles = [
   "git://github.com/vim-scripts/Color-Sampler-Pack.git",
   "git://github.com/vim-scripts/VimClojure.git",
   "git://github.com/Rip-Rip/clang_complete.git",
-  "git://github.com/juvenn/mustache.vim.git"
+  "git://github.com/juvenn/mustache.vim.git",
+  "git://github.com/kien/ctrlp.vim.git",
+  "git://github.com/jpalardy/vim-slime.git",
+  "git://github.com/elubow/cql-vim.git",
+  "git://github.com/msanders/cocoa.vim.git"
 ]
 
 vim_org_scripts = [
-#  ["IndexedSearch", "7062",  "plugin"],
-#  ["gist",          "12732", "plugin"],
   ["jquery",          "12107",  "syntax"],
   ["minibufexpl",     "3640",   "plugin"],
   ['json',            "10853",  "syntax"],
   ['python',          '790',    'syntax']
-#  ["vimclojure",      "11066",  "plugin"]
 ]
 
 # TODO add support for bitbucket mercurial repos
@@ -62,11 +60,11 @@ bundles_dir = File.join(File.dirname(__FILE__), "..", "vim", "bundle")
 
 # TODO add support for updating these bundles
 exclude_bundles = [
-                    'vim-peepopen',
-                    'vim-latex-1.8.23-20101027-r1112',
-                    'vim-r-plugin-110805',
-                    'vim-colors-olauzon' # https://github.com/olauzon/vim-colors
-                  ]
+  'vim-peepopen',
+  'vim-latex-1.8.23-20101027-r1112',
+  'vim-r-plugin-110805',
+  'vim-colors-olauzon' # https://github.com/olauzon/vim-colors
+]
 
 FileUtils.cd(bundles_dir)
 
@@ -84,7 +82,9 @@ vim_org_scripts.each do |name, script_id, script_type|
   puts "  Downloading #{name}"
   local_file = File.join(name, script_type, "#{name}.vim")
   FileUtils.mkdir_p(File.dirname(local_file))
+
   File.open(local_file, "w") do |file|
-    file << open("http://www.vim.org/scripts/download_script.php?src_id=#{script_id}").read
+    file << open(["http://www.vim.org/scripts/download_script.php?src_id=",
+                  script_id].join).read
   end
 end

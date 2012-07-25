@@ -19,6 +19,7 @@ if version > 580
   syntax reset
     endif
 endif
+
 let g:colors_name="aftereight"
 
 hi Normal  guifg=White guibg=grey20
@@ -39,16 +40,16 @@ hi IncSearch      guifg=slategrey   guibg=khaki
 "hi LineNr
 hi ModeMsg        guifg=goldenrod
 hi MoreMsg        guifg=SeaGreen
-hi NonText        guifg=#605050                     cterm=bold ctermfg=darkblue
+hi NonText        guifg=#605050 cterm=bold ctermfg=darkblue
 hi Question       guifg=springgreen
 hi Search         guibg=peru        guifg=wheat
 hi SpecialKey     guifg=yellowgreen ctermfg=darkgreen
 hi StatusLine     guibg=#c2bfa5     guifg=black gui=none
 hi StatusLineNC   guibg=#c2bfa5     guifg=grey50 gui=none
 hi Title          guifg=indianred
-hi Visual  gui=none guifg=khaki     guibg=olivedrab
+hi Visual         gui=none guifg=khaki     guibg=olivedrab
 "hi VisualNOS
-hi WarningMsg  guifg=salmon
+hi WarningMsg     guifg=salmon
 "hi WildMenu
 "hi Menu
 "hi Scrollbar
@@ -62,8 +63,10 @@ hi Statement      guifg=khaki
 hi PreProc        guifg=indianred
 hi Type           guifg=darkkhaki
 hi Special        guifg=navajowhite
+
 "hi Underlined
 hi Ignore         guifg=grey40
+
 "hi Error
 hi Todo           guifg=orangered guibg=yellow2
 

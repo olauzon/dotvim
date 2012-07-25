@@ -1,0 +1,2 @@
+rm -rf ~/.gvimrc
+ln -s ~/src/dotvim/gvimrc ~/.gvimrc
