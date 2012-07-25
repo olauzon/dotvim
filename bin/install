@@ -1,0 +1,5 @@
+rm -rf ~/.vimrc
+ln -s ~/src/dotvim/vimrc ~/.vimrc
+
+rm -rf ~/.vim
+ln -s ~/src/dotvim/vim ~/.vim
