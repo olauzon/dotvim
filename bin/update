@@ -45,7 +45,8 @@ vim_org_scripts = [
   ["jquery",          "12107",  "syntax"],
   ["minibufexpl",     "3640",   "plugin"],
   ['json',            "10853",  "syntax"],
-  ['python',          '790',    'syntax']
+  ['python',          '790',    'syntax'],
+  ['pig',             '2186',   'syntax']
 ]
 
 # TODO add support for bitbucket mercurial repos

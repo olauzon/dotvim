@@ -19,6 +19,22 @@ set background=dark
 " :colorscheme mac_classic
 " :colorscheme vividchalk
 
+filetype off
+call pathogen#helptags()
+call pathogen#runtime_append_all_bundles()
+
+set background=dark
+" :colorscheme aftereight " vim-colors-olauzon based on anotherdark
+:colorscheme bella " vim-colors-olauzon based on twilight
+" :colorscheme edward "       vim-colors-olauzon based on twilight
+" :colorscheme twilight
+" :colorscheme moria
+" :colorscheme anotherdark
+" :colorscheme candycode
+" :colorscheme solarized
+" :colorscheme mac_classic
+" :colorscheme vividchalk
+
 set number
 set go-=T
 
@@ -73,6 +89,7 @@ let NERDTreeMouseMode = 3
 
 " Shortcut to toggle nerd tree
 map <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
+map <leader>t :execute 'NERDTreeToggle ' . getcwd()<CR>
 
 " Shortcut to delete trailing whitespace
 nmap <leader>w :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
