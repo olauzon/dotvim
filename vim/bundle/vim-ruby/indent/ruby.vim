@@ -90,6 +90,9 @@ let s:continuation_regex =
 " Regex that defines bracket continuations
 let s:bracket_continuation_regex = '%\@<!\%([({[]\)\s*\%(#.*\)\=$'
 
+" Regex that defines the first part of a splat pattern
+let s:splat_regex = '[[,(]\s*\*\s*\%(#.*\)\=$'
+
 " Regex that defines blocks.
 "
 " Note that there's a slight problem with this regex and s:continuation_regex.
@@ -101,6 +104,8 @@ let s:bracket_continuation_regex = '%\@<!\%([({[]\)\s*\%(#.*\)\=$'
 "
 let s:block_regex =
       \ '\%(\<do:\@!\>\|%\@<!{\)\s*\%(|\s*(*\s*\%([*@&]\=\h\w*,\=\s*\)\%(,\s*(*\s*[*@&]\=\h\w*\s*)*\s*\)*|\)\=\s*\%(#.*\)\=$'
+
+let s:block_continuation_regex = '^\s*[^])}\t ].*'.s:block_regex
 
 " 2. Auxiliary Functions {{{1
 " ======================
@@ -156,7 +161,18 @@ function s:GetMSL(lnum)
     " Otherwise, terminate search as we have found our MSL already.
     let line = getline(lnum)
 
-    if line =~ s:non_bracket_continuation_regex && msl_body =~ s:non_bracket_continuation_regex
+    if line =~ s:splat_regex
+      " If the above line looks like the "*" of a splat, use the current one's
+      " indentation.
+      "
+      " Example:
+      "   Hash[*
+      "     method_call do
+      "       something
+      "
+      return msl
+    elseif line =~ s:non_bracket_continuation_regex &&
+          \ msl_body =~ s:non_bracket_continuation_regex
       " If the current line is a non-bracket continuation and so is the
       " previous one, keep its indent and continue looking for an MSL.
       "
@@ -166,7 +182,8 @@ function s:GetMSL(lnum)
       "     three
       "
       let msl = lnum
-    elseif line =~ s:non_bracket_continuation_regex && (msl_body =~ s:bracket_continuation_regex || msl_body =~ s:block_regex)
+    elseif line =~ s:non_bracket_continuation_regex &&
+          \ (msl_body =~ s:bracket_continuation_regex || msl_body =~ s:block_continuation_regex)
       " If the current line is a bracket continuation or a block-starter, but
       " the previous is a non-bracket one, respect the previous' indentation,
       " and stop here.
@@ -177,7 +194,8 @@ function s:GetMSL(lnum)
       "     three
       "
       return lnum
-    elseif line =~ s:bracket_continuation_regex && (msl_body =~ s:bracket_continuation_regex || msl_body =~ s:block_regex)
+    elseif line =~ s:bracket_continuation_regex &&
+          \ (msl_body =~ s:bracket_continuation_regex || msl_body =~ s:block_continuation_regex)
       " If both lines are bracket continuations (the current may also be a
       " block-starter), use the current one's and stop here
       "
@@ -186,7 +204,9 @@ function s:GetMSL(lnum)
       "     other_method_call(
       "       foo
       return msl
-    elseif line =~ s:block_regex && msl_body !~ s:continuation_regex && msl_body !~ s:block_regex
+    elseif line =~ s:block_regex &&
+          \ msl_body !~ s:continuation_regex &&
+          \ msl_body !~ s:block_continuation_regex
       " If the previous line is a block-starter and the current one is
       " mostly ordinary, use the current one as the MSL.
       "
@@ -351,6 +371,11 @@ function GetRubyIndent(...)
     return indent(s:GetMSL(lnum)) + &sw
   endif
 
+  " If the previous line ended with the "*" of a splat, add a level of indent
+  if line =~ s:splat_regex
+    return indent(lnum) + &sw
+  endif
+
   " If the previous line contained an opening bracket, and we are still in it,
   " add indent depending on the bracket type.
   if line =~ '[[({]'
@@ -411,7 +436,7 @@ function GetRubyIndent(...)
   " If the previous line wasn't a MSL and is continuation return its indent.
   " TODO: the || s:IsInString() thing worries me a bit.
   if p_lnum != lnum
-    if s:Match(p_lnum,s:non_bracket_continuation_regex)||s:IsInString(p_lnum,strlen(line))
+    if s:Match(p_lnum, s:non_bracket_continuation_regex) || s:IsInString(p_lnum,strlen(line))
       return ind
     endif
   endif

@@ -59,6 +59,8 @@ augroup myfiletypes
   " Clear old autocmds in group
   autocmd!
   autocmd BufNewFile,BufRead *.clj* setf clojure
+  autocmd BufNewFile,BufRead *.pig.erb colorscheme bella
+  autocmd BufNewFile,BufRead *.pig colorscheme bella
   autocmd BufNewFile,BufRead *.json_builder setf ruby
   autocmd BufNewFile,BufRead *.red setf ruby
   autocmd BufNewFile,BufRead *.erl set ai sw=4 sts=4 et

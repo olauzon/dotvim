@@ -20,4 +20,4 @@ Updating bundles
 ----------------
 
     cd ~/src/dotvim
-    ./bin/vim-update
+    ./bin/update
