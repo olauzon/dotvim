@@ -19,22 +19,6 @@ set background=dark
 " :colorscheme mac_classic
 " :colorscheme vividchalk
 
-filetype off
-call pathogen#helptags()
-call pathogen#runtime_append_all_bundles()
-
-set background=dark
-" :colorscheme aftereight " vim-colors-olauzon based on anotherdark
-:colorscheme bella " vim-colors-olauzon based on twilight
-" :colorscheme edward "       vim-colors-olauzon based on twilight
-" :colorscheme twilight
-" :colorscheme moria
-" :colorscheme anotherdark
-" :colorscheme candycode
-" :colorscheme solarized
-" :colorscheme mac_classic
-" :colorscheme vividchalk
-
 set number
 set go-=T
 
@@ -72,6 +56,8 @@ augroup myfiletypes
   autocmd BufNewFile,Bufread *.jst set ft=mustache
   autocmd BufNewFile,BufRead *.cql set syntax=cql
 augroup END
+
+au BufRead,BufNewFile *.go set filetype=go
 
 set ts=2
 set sts=2
