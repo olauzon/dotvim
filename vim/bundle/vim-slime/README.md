@@ -1,9 +1,9 @@
 vim-slime
 =========
 
-Grab some text and "send" it to a [GNU Screen](http://www.gnu.org/software/screen/) / [tmux](http://tmux.sourceforge.net/) session.
+Grab some text and "send" it to a [GNU Screen](http://www.gnu.org/software/screen/) / [tmux](http://tmux.sourceforge.net/) / [whimrepl](https://github.com/malyn/lein-whimrepl) session.
 
-    VIM ---(text)---> screen / tmux
+    VIM ---(text)---> screen / tmux / whimrepl
 
 Presumably, your screen contains something interesting like, say, a Clojure [REPL](http://en.wikipedia.org/wiki/REPL). But if it can
 receive typed text, it can receive it from vim-slime.
@@ -68,6 +68,7 @@ tmux target pane
     ":" means current window, current pane (a reasonable default)
     ":i" means the ith window, current pane
     ":i.j" means the ith window, jth pane
+    "h:i.j" means the tmux session where h is the session identifier (either session name or number), the ith window and the jth pane 
 
 By default `STDIN` is used to pass the text to tmux.
 If you experience issues with this you may be able to work around them
@@ -79,6 +80,26 @@ This file is not erased by the plugin and will always contain the last thing
 you sent over.  If this behavior is undesired one alternative is to use a temporary file:
 
     let g:slime_paste_file = tempname()
+
+If you do not want vim-slime to prompt for every buffer, you can set a default configuration
+
+    let g:slime_default_config = {"socket_name": "default", "target_pane": "1"}
+
+If this default config is not appropriate for a given buffer, you can call `:SlimeConfig` 
+to reset it.
+
+Configuration (whimrepl)
+------------------------
+
+whimrepl is also not the default, to use it you will have to add this line to your .vimrc:
+
+    let g:slime_target = "whimrepl"
+
+When you invoke vim-slime for the first time (see below), you will be prompted for more configuration.
+
+whimrepl server name
+
+    This is the name of the whimrepl server that you wish to target.  whimrepl displays that name in its banner every time you start up an instance of whimrepl.
 
 Key Bindings
 ------------

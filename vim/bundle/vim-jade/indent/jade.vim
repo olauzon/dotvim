@@ -11,7 +11,7 @@ endif
 unlet! b:did_indent
 let b:did_indent = 1
 
-setlocal autoindent et
+setlocal autoindent
 setlocal indentexpr=GetJadeIndent()
 setlocal indentkeys=o,O,*<Return>,},],0),!^F
 
@@ -24,7 +24,7 @@ let s:attributes = '\%((.\{-\})\)'
 let s:tag = '\([%.#][[:alnum:]_-]\+\|'.s:attributes.'\)*[<>]*'
 
 if !exists('g:jade_self_closing_tags')
-  let g:jade_self_closing_tags = 'meta|link|img|hr|br'
+  let g:jade_self_closing_tags = 'meta|link|img|hr|br|input'
 endif
 
 setlocal formatoptions+=r
@@ -51,8 +51,8 @@ function! GetJadeIndent()
   if line =~ '^!!!'
     return indent
   elseif line =~ '^/\%(\[[^]]*\]\)\=$'
-    return increse
-  elseif line =~ '^\%(if\|else\|unless\|for\|each\|block\|mixin\|append\)'
+    return increase
+  elseif line =~ '^\%(if\|else\|unless\|for\|each\|block\|mixin\|append\|case\|when\)'
     return increase
   elseif line =~ '^'.s:tag.'[&!]\=[=~-].*,\s*$'
     return increase

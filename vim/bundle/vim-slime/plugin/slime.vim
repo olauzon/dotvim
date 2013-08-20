@@ -74,6 +74,22 @@ function! s:TmuxConfig() abort
 endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" whimrepl
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+function! s:WhimreplSend(config, text)
+  call remote_send(a:config["server_name"], a:text)
+endfunction
+
+function! s:WhimreplConfig() abort
+  if !exists("b:slime_config")
+    let b:slime_config = {"server_name": "whimrepl"}
+  end
+
+  let b:slime_config["server_name"] = input("whimrepl server name: ", b:slime_config["server_name"])
+endfunction
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Helpers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -107,10 +123,18 @@ function! s:_EscapeText(text)
   end
 endfunction
 
-function! s:SlimeSendOp(type, ...) abort
+function! s:SlimeGetConfig()
   if !exists("b:slime_config")
-    call s:SlimeDispatch('Config')
+    if exists("g:slime_default_config")
+      let b:slime_config = g:slime_default_config
+    else
+      call s:SlimeDispatch('Config')
+    end
   end
+endfunction
+
+function! s:SlimeSendOp(type, ...) abort
+  call s:SlimeGetConfig()
 
   let sel_save = &selection
   let &selection = "inclusive"
@@ -135,9 +159,7 @@ function! s:SlimeSendOp(type, ...) abort
 endfunction
 
 function! s:SlimeSendRange() range abort
-  if !exists("b:slime_config")
-    call s:SlimeDispatch('Config')
-  end
+  call s:SlimeGetConfig()
 
   let rv = getreg('"')
   let rt = getregtype('"')
@@ -199,6 +221,7 @@ endfunction
 
 command -bar -nargs=0 SlimeConfig call s:SlimeConfig()
 command -range -bar -nargs=0 SlimeSend <line1>,<line2>call s:SlimeSendRange()
+command -nargs=+ SlimeSend1 call s:SlimeSend(<q-args> . "\r")
 
 noremap <SID>Operator :<c-u>set opfunc=<SID>SlimeSendOp<cr>g@
 
