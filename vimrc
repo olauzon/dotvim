@@ -133,3 +133,6 @@ let vimclojure#ParenRainbow=1           " Rainbow parentheses'!
 let g:slime_target = "tmux"
 
 let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
+
+" Line height
+set linespace=3
