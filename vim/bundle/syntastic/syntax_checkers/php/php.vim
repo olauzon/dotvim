@@ -19,16 +19,8 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 function! SyntaxCheckers_php_php_GetHighlightRegex(item)
-<<<<<<< HEAD
     let term = matchstr(a:item['text'], "\\munexpected '\\zs[^']\\+\\ze'")
     return term != '' ? '\V' . escape(term, '\') : ''
-=======
-    let unexpected = matchstr(a:item['text'], "\\munexpected '[^']\\+'")
-    if len(unexpected) < 1
-        return ''
-    endif
-    return '\V'.split(unexpected, "'")[1]
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
 endfunction
 
 function! SyntaxCheckers_php_php_GetLocList() dict

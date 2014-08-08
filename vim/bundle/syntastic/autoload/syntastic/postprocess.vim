@@ -6,31 +6,7 @@ let g:loaded_syntastic_postprocess_autoload = 1
 let s:save_cpo = &cpo
 set cpo&vim
 
-<<<<<<< HEAD
 " Public functions {{{1
-=======
-function! s:compareErrorItems(a, b)
-    if a:a['bufnr'] != a:b['bufnr']
-        " group by files
-        return a:a['bufnr'] - a:b['bufnr']
-    elseif a:a['lnum'] != a:b['lnum']
-        return a:a['lnum'] - a:b['lnum']
-    elseif a:a['type'] !=? a:b['type']
-        " errors take precedence over warnings
-        return a:a['type'] ==? 'e' ? -1 : 1
-    else
-        return get(a:a, 'col') - get(a:b, 'col')
-    endif
-endfunction
-
-" natural sort
-function! syntastic#postprocess#sort(errors)
-    return sort(a:errors, 's:compareErrorItems')
-endfunction
-
-function! syntastic#postprocess#compressWhitespace(errors)
-    let llist = []
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
 
 " merge consecutive blanks
 function! syntastic#postprocess#compressWhitespace(errors) " {{{2
@@ -38,12 +14,8 @@ function! syntastic#postprocess#compressWhitespace(errors) " {{{2
         let e['text'] = substitute(e['text'], "\001", '', 'g')
         let e['text'] = substitute(e['text'], '\n', ' ', 'g')
         let e['text'] = substitute(e['text'], '\m\s\{2,}', ' ', 'g')
-<<<<<<< HEAD
         let e['text'] = substitute(e['text'], '\m^\s\+', '', '')
         let e['text'] = substitute(e['text'], '\m\s\+$', '', '')
-=======
-        call add(llist, e)
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
     endfor
 
     return a:errors
@@ -75,11 +47,6 @@ function! syntastic#postprocess#filterForeignErrors(errors) " {{{2
 endfunction " }}}2
 
 " }}}1
-
-" filter out errors referencing other files
-function! syntastic#postprocess#filterForeignErrors(errors)
-    return filter(copy(a:errors), 'get(v:val, "bufnr") == ' . bufnr(''))
-endfunction
 
 let &cpo = s:save_cpo
 unlet s:save_cpo

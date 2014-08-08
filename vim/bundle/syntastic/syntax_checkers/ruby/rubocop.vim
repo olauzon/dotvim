@@ -23,13 +23,8 @@ set cpo&vim
 
 function! SyntaxCheckers_ruby_rubocop_IsAvailable() dict
     return
-<<<<<<< HEAD
         \ executable(self.getExec()) &&
         \ syntastic#util#versionIsAtLeast(syntastic#util#getVersion(self.getExecEscaped() . ' --version'), [0, 9, 0])
-=======
-        \ executable('rubocop') &&
-        \ syntastic#util#versionIsAtLeast(syntastic#util#getVersion('rubocop --version'), [0,9,0])
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
 endfunction
 
 function! SyntaxCheckers_ruby_rubocop_GetLocList() dict

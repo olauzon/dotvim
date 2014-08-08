@@ -19,7 +19,6 @@ if !exists('g:syntastic_cpp_compiler_options')
     let g:syntastic_cpp_compiler_options = ''
 endif
 
-<<<<<<< HEAD
 let s:save_cpo = &cpo
 set cpo&vim
 
@@ -31,9 +30,6 @@ function! SyntaxCheckers_cpp_gcc_IsAvailable() dict
 endfunction
 
 function! SyntaxCheckers_cpp_gcc_GetLocList() dict
-=======
-function! SyntaxCheckers_cpp_gcc_GetLocList()
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
     return syntastic#c#GetLocList('cpp', 'gcc', {
         \ 'errorformat':
         \     '%-G%f:%s:,' .

@@ -77,11 +77,7 @@ function! fugitive#git_version(...) abort
   return s:git_versions[g:fugitive_git_executable]
 endfunction
 
-<<<<<<< HEAD
 function! s:recall() abort
-=======
-function! s:recall()
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
   let rev = s:sub(s:buffer().rev(), '^/', '')
   if rev ==# ':'
     return matchstr(getline('.'),'^#\t\%([[:alpha:] ]\+: *\)\=\zs.\{-\}\ze\%( ([^()[:digit:]]\+)\)\=$\|^\d\{6} \x\{40\} \d\t\zs.*')
@@ -2385,20 +2381,13 @@ function! s:BufReadIndex() abort
     else
       let cd = exists('*haslocaldir') && haslocaldir() ? 'lcd ' : 'cd '
       let dir = getcwd()
-<<<<<<< HEAD
       if fugitive#git_version() =~# '^0\|^1\.[1-7]\.'
-=======
-      if fugitive#git_version() =~# '^0\|1\.[1-7]\.'
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
         let cmd = s:repo().git_command('status')
       else
         let cmd = s:repo().git_command(
               \ '-c', 'status.displayCommentPrefix=true',
               \ '-c', 'color.status=false',
-<<<<<<< HEAD
               \ '-c', 'status.short=false',
-=======
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
               \ 'status')
       endif
       try
@@ -2499,11 +2488,7 @@ function! s:BufWriteIndexFile() abort
     endif
     let info = old_mode.' '.sha1.' '.stage."\t".path
     call writefile([info],tmp)
-<<<<<<< HEAD
     if s:winshell()
-=======
-    if &shell =~# 'cmd'
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
       let error = system('type '.s:gsub(tmp,'/','\\').'|'.s:repo().git_command('update-index','--index-info'))
     else
       let error = system(s:repo().git_command('update-index','--index-info').' < '.tmp)

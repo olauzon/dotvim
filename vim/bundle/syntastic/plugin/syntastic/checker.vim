@@ -24,13 +24,8 @@ function! g:SyntasticChecker.New(args) " {{{2
 
     let newObj._locListFunc = function(prefix . 'GetLocList')
 
-<<<<<<< HEAD
     if exists('*' . prefix . 'IsAvailable')
         let newObj._isAvailableFunc = function(prefix . 'IsAvailable')
-=======
-    if exists('*' . prefix . 'GetHighlightRegex')
-        let newObj._highlightRegexFunc = function(prefix . 'GetHighlightRegex')
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
     else
         let newObj._isAvailableFunc = function('SyntasticCheckerIsAvailableDefault')
     endif
@@ -77,7 +72,6 @@ function! g:SyntasticChecker.getLocListRaw() " {{{2
     return list
 endfunction " }}}2
 
-<<<<<<< HEAD
 function! g:SyntasticChecker.getLocList() " {{{2
     return g:SyntasticLoclist.New(self.getLocListRaw())
 endfunction " }}}2
@@ -102,11 +96,6 @@ function! g:SyntasticChecker.makeprgBuild(opts) " {{{2
 
     return join(parts)
 endfunction " }}}2
-=======
-function! g:SyntasticChecker.getHighlightRegexFor(error)
-    return empty(self._highlightRegexFunc) ? [] : self._highlightRegexFunc(a:error)
-endfunction
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
 
 function! g:SyntasticChecker.isAvailable() " {{{2
     if !has_key(self, '_available')
@@ -119,7 +108,6 @@ endfunction " }}}2
 
 " Private methods {{{1
 
-<<<<<<< HEAD
 function! g:SyntasticChecker._quietMessages(errors) " {{{2
     " wildcard quiet_messages
     let quiet_filters = copy(syntastic#util#var('quiet_messages', {}))
@@ -151,15 +139,6 @@ function! g:SyntasticChecker._populateHighlightRegexes(errors) " {{{2
             if e['valid']
                 let term = self._highlightRegexFunc(e)
                 if term != ''
-=======
-function! g:SyntasticChecker._populateHighlightRegexes(errors)
-    let list = a:errors
-    if !empty(self._highlightRegexFunc)
-        for e in list
-            if e['valid']
-                let term = self._highlightRegexFunc(e)
-                if len(term) > 0
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
                     let e['hl'] = term
                 endif
             endif

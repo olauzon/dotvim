@@ -8,32 +8,9 @@ set cpo&vim
 
 " Public functions {{{1
 
-<<<<<<< HEAD
 function! syntastic#util#isRunningWindows() " {{{2
     return has('win16') || has('win32') || has('win64')
 endfunction " }}}2
-=======
-if !exists("g:syntastic_delayed_redraws")
-    let g:syntastic_delayed_redraws = 0
-endif
-
-let s:deprecationNoticesIssued = []
-let s:redraw_delayed = 0
-let s:redraw_full = 0
-
-if g:syntastic_delayed_redraws
-    " CursorHold / CursorHoldI events are triggered if user doesn't press a
-    " key for &updatetime ms.  We change it only if current value is the default
-    " value, that is 4000 ms.
-    if &updatetime == 4000
-        let &updatetime = 500
-    endif
-
-    augroup syntastic
-        autocmd CursorHold,CursorHoldI * call syntastic#util#redrawHandler()
-    augroup END
-endif
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
 
 function! syntastic#util#DevNull() " {{{2
     if syntastic#util#isRunningWindows()
@@ -46,11 +23,6 @@ endfunction " }}}2
 function! syntastic#util#Slash() abort " {{{2
     return (!exists("+shellslash") || &shellslash) ? '/' : '\'
 endfunction " }}}2
-
-" Get directory separator
-function! syntastic#util#Slash() abort
-    return !exists("+shellslash") || &shellslash ? '/' : '\'
-endfunction
 
 "search the first 5 lines of the file for a magic number and return a map
 "containing the args and the executable
@@ -66,16 +38,10 @@ function! syntastic#util#parseShebang() " {{{2
     for lnum in range(1, 5)
         let line = getline(lnum)
         if line =~ '^#!'
-<<<<<<< HEAD
             let line = substitute(line, '\v^#!\s*(\S+/env(\s+-\S+)*\s+)?', '', '')
             let exe = matchstr(line, '\m^\S*\ze')
             let args = split(matchstr(line, '\m^\S*\zs.*'))
             return { 'exe': exe, 'args': args }
-=======
-            let exe = matchstr(line, '\m^#!\s*\zs[^ \t]*')
-            let args = split(matchstr(line, '\m^#!\s*[^ \t]*\zs.*'))
-            return {'exe': exe, 'args': args}
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
         endif
     endfor
 
@@ -95,22 +61,11 @@ function! syntastic#util#parseVersion(version) " {{{2
     return map(split(matchstr( a:version, '\v^\D*\zs\d+(\.\d+)+\ze' ), '\m\.'), 'str2nr(v:val)')
 endfunction " }}}2
 
-" Parse a version string.  Return an array of version components.
-function! syntastic#util#parseVersion(version)
-    return split(matchstr( a:version, '\v^\D*\zs\d+(\.\d+)+\ze' ), '\m\.')
-endfunction
-
 " Run 'command' in a shell and parse output as a version string.
 " Returns an array of version components.
-<<<<<<< HEAD
 function! syntastic#util#getVersion(command) " {{{2
     return syntastic#util#parseVersion(system(a:command))
 endfunction " }}}2
-=======
-function! syntastic#util#getVersion(command)
-    return syntastic#util#parseVersion(system(a:command))
-endfunction
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
 
 " Verify that the 'installed' version is at least the 'required' version.
 "
@@ -301,35 +256,8 @@ function! s:_translateFilter(filters) " {{{2
         endif
     endfor
 
-<<<<<<< HEAD
     if conditions == []
         let conditions = ["1"]
-=======
-" On older Vim versions calling redraw while a popup is visible can make
-" Vim segfault, so move redraws to a CursorHold / CursorHoldI handler.
-function! syntastic#util#redraw(full)
-    if !g:syntastic_delayed_redraws || !pumvisible()
-        call s:Redraw(a:full)
-        let s:redraw_delayed = 0
-        let s:redraw_full = 0
-    else
-        let s:redraw_delayed = 1
-        let s:redraw_full = s:redraw_full || a:full
-    endif
-endfunction
-
-function! syntastic#util#redrawHandler()
-    if s:redraw_delayed && !pumvisible()
-        call s:Redraw(s:redraw_full)
-        let s:redraw_delayed = 0
-        let s:redraw_full = 0
-    endif
-endfunction
-
-function! syntastic#util#debug(msg)
-    if g:syntastic_debug
-        echomsg "syntastic: debug: " . a:msg
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
     endif
     return len(conditions) == 1 ? conditions[0] : join(map(conditions, '"(" . v:val . ")"'), ' && ')
 endfunction " }}}2
@@ -351,21 +279,6 @@ function! s:_translateElement(key, term) " {{{2
 endfunction " }}}2
 
 " }}}1
-
-"Redraw in a way that doesnt make the screen flicker or leave anomalies behind.
-"
-"Some terminal versions of vim require `redraw!` - otherwise there can be
-"random anomalies left behind.
-"
-"However, on some versions of gvim using `redraw!` causes the screen to
-"flicker - so use redraw.
-function! s:Redraw(full)
-    if a:full
-        redraw!
-    else
-        redraw
-    endif
-endfunction
 
 let &cpo = s:save_cpo
 unlet s:save_cpo

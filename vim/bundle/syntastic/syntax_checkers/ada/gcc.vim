@@ -16,7 +16,6 @@ if !exists('g:syntastic_ada_compiler_options')
     let g:syntastic_ada_compiler_options = ''
 endif
 
-<<<<<<< HEAD
 let s:save_cpo = &cpo
 set cpo&vim
 
@@ -28,9 +27,6 @@ function! SyntaxCheckers_ada_gcc_IsAvailable() dict
 endfunction
 
 function! SyntaxCheckers_ada_gcc_GetLocList() dict
-=======
-function! SyntaxCheckers_ada_gcc_GetLocList()
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
     return syntastic#c#GetLocList('ada', 'gcc', {
         \ 'errorformat':
         \     '%-G%f:%s:,' .

@@ -10,17 +10,10 @@ set cpo&vim
 
 " convenience function to determine the 'null device' parameter
 " based on the current operating system
-<<<<<<< HEAD
 function! syntastic#c#NullOutput() " {{{2
     let known_os = has('unix') || has('mac') || syntastic#util#isRunningWindows()
     return known_os ? '-o ' . syntastic#util#DevNull() : ''
 endfunction " }}}2
-=======
-function! syntastic#c#NullOutput()
-    let known_os = has('win32') || has('unix') || has('mac')
-    return known_os ? '-o ' . syntastic#util#DevNull() : ''
-endfunction
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
 
 " read additional compiler flags from the given configuration file
 " the file format and its parsing mechanism is inspired by clang_complete
@@ -37,11 +30,7 @@ function! syntastic#c#ReadConfig(file) " {{{2
     " try to read config file
     try
         let lines = readfile(config)
-<<<<<<< HEAD
     catch /\m^Vim\%((\a\+)\)\=:E48[45]/
-=======
-    catch /^Vim\%((\a\+)\)\=:E484/
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
         return ''
     endtry
 
@@ -54,7 +43,6 @@ function! syntastic#c#ReadConfig(file) " {{{2
 
     let parameters = []
     for line in lines
-<<<<<<< HEAD
         let matches = matchstr(line, '\m\C^\s*-I\s*\zs.\+')
         if matches != ''
             " this one looks like an absolute path
@@ -62,22 +50,12 @@ function! syntastic#c#ReadConfig(file) " {{{2
                 call add(parameters, '-I' . matches)
             else
                 call add(parameters, '-I' . filepath . syntastic#util#Slash() . matches)
-=======
-        let matches = matchlist(line, '\m\C^\s*-I\s*\(\S\+\)')
-        if matches != [] && matches[1] != ''
-            " this one looks like an absolute path
-            if match(matches[1], '\m^\%(/\|\a:\)') != -1
-                call add(parameters, '-I' . matches[1])
-            else
-                call add(parameters, '-I' . filepath . syntastic#util#Slash() . matches[1])
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
             endif
         else
             call add(parameters, line)
         endif
     endfor
 
-<<<<<<< HEAD
     return join(map(parameters, 'syntastic#util#shescape(v:val)'))
 endfunction " }}}2
 
@@ -85,33 +63,16 @@ endfunction " }}}2
 function! syntastic#c#GetLocList(filetype, subchecker, options) " {{{2
     try
         let flags = s:_getCflags(a:filetype, a:subchecker, a:options)
-=======
-    return join(map(parameters, 'syntastic#util#shescape(fnameescape(v:val))'), ' ')
-endfunction
-
-" GetLocList() for C-like compilers
-function! syntastic#c#GetLocList(filetype, subchecker, options)
-    try
-        let flags = s:GetCflags(a:filetype, a:subchecker, a:options)
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
     catch /\m\C^Syntastic: skip checks$/
         return []
     endtry
 
-<<<<<<< HEAD
     let makeprg = syntastic#util#shexpand(g:syntastic_{a:filetype}_compiler) .
         \ ' ' . flags . ' ' . syntastic#util#shexpand('%')
 
     let errorformat = s:_getCheckerVar('g', a:filetype, a:subchecker, 'errorformat', a:options['errorformat'])
 
     let postprocess = s:_getCheckerVar('g', a:filetype, a:subchecker, 'remove_include_errors', 0) ?
-=======
-    let makeprg = g:syntastic_{a:filetype}_compiler . ' ' . flags . ' ' . syntastic#util#shexpand('%')
-
-    let errorformat = s:GetCheckerVar('g', a:filetype, a:subchecker, 'errorformat', a:options['errorformat'])
-
-    let postprocess = s:GetCheckerVar('g', a:filetype, a:subchecker, 'remove_include_errors', 0) ?
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
         \ ['filterForeignErrors'] : []
 
     " process makeprg
@@ -119,18 +80,13 @@ function! syntastic#c#GetLocList(filetype, subchecker, options)
         \ 'makeprg': makeprg,
         \ 'errorformat': errorformat,
         \ 'postprocess': postprocess })
-<<<<<<< HEAD
 endfunction " }}}2
 
 " }}}1
-=======
-endfunction
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
 
 " Private functions {{{1
 
 " initialize c/cpp syntax checker handlers
-<<<<<<< HEAD
 function! s:_init() " {{{2
     let s:handlers = []
     let s:cflags = {}
@@ -163,31 +119,6 @@ endfunction " }}}2
 
 " resolve checker-related user variables
 function! s:_getCheckerVar(scope, filetype, subchecker, name, default) " {{{2
-=======
-function! s:Init()
-    let s:handlers = []
-    let s:cflags = {}
-
-    call s:RegHandler('cairo',     'syntastic#c#CheckPKG', ['cairo', 'cairo'])
-    call s:RegHandler('freetype',  'syntastic#c#CheckPKG', ['freetype', 'freetype2', 'freetype'])
-    call s:RegHandler('glade',     'syntastic#c#CheckPKG', ['glade', 'libglade-2.0', 'libglade'])
-    call s:RegHandler('glib',      'syntastic#c#CheckPKG', ['glib', 'glib-2.0', 'glib'])
-    call s:RegHandler('gtk',       'syntastic#c#CheckPKG', ['gtk', 'gtk+-2.0', 'gtk+', 'glib-2.0', 'glib'])
-    call s:RegHandler('libsoup',   'syntastic#c#CheckPKG', ['libsoup', 'libsoup-2.4', 'libsoup-2.2'])
-    call s:RegHandler('libxml',    'syntastic#c#CheckPKG', ['libxml', 'libxml-2.0', 'libxml'])
-    call s:RegHandler('pango',     'syntastic#c#CheckPKG', ['pango', 'pango'])
-    call s:RegHandler('SDL',       'syntastic#c#CheckPKG', ['sdl', 'sdl'])
-    call s:RegHandler('opengl',    'syntastic#c#CheckPKG', ['opengl', 'gl'])
-    call s:RegHandler('webkit',    'syntastic#c#CheckPKG', ['webkit', 'webkit-1.0'])
-
-    call s:RegHandler('php\.h',    'syntastic#c#CheckPhp',    [])
-    call s:RegHandler('Python\.h', 'syntastic#c#CheckPython', [])
-    call s:RegHandler('ruby',      'syntastic#c#CheckRuby',   [])
-endfunction
-
-" resolve checker-related user variables
-function! s:GetCheckerVar(scope, filetype, subchecker, name, default)
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
     let prefix = a:scope . ':' . 'syntastic_'
     if exists(prefix . a:filetype . '_' . a:subchecker . '_' . a:name)
         return {a:scope}:syntastic_{a:filetype}_{a:subchecker}_{a:name}
@@ -196,7 +127,6 @@ function! s:GetCheckerVar(scope, filetype, subchecker, name, default)
     else
         return a:default
     endif
-<<<<<<< HEAD
 endfunction " }}}2
 
 " resolve user CFLAGS
@@ -204,15 +134,6 @@ function! s:_getCflags(ft, ck, opts) " {{{2
     " determine whether to parse header files as well
     if has_key(a:opts, 'header_names') && expand('%') =~? a:opts['header_names']
         if s:_getCheckerVar('g', a:ft, a:ck, 'check_header', 0)
-=======
-endfunction
-
-" resolve user CFLAGS
-function! s:GetCflags(ft, ck, opts)
-    " determine whether to parse header files as well
-    if has_key(a:opts, 'header_names') && expand('%') =~? a:opts['header_names']
-        if s:GetCheckerVar('g', a:ft, a:ck, 'check_header', 0)
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
             let flags = get(a:opts, 'header_flags', '') . ' -c ' . syntastic#c#NullOutput()
         else
             " checking headers when check_header is unset: bail out
@@ -222,7 +143,6 @@ function! s:GetCflags(ft, ck, opts)
         let flags = get(a:opts, 'main_flags', '')
     endif
 
-<<<<<<< HEAD
     let flags .= ' ' . s:_getCheckerVar('g', a:ft, a:ck, 'compiler_options', '') . ' ' . s:_getIncludeDirs(a:ft)
 
     " check if the user manually set some cflags
@@ -238,23 +158,6 @@ function! s:GetCflags(ft, ck, opts)
                     " search for header includes if not cached already
                     if !exists('b:syntastic_' . a:ft . '_includes')
                         let b:syntastic_{a:ft}_includes = s:_searchHeaders()
-=======
-    let flags .= ' ' . s:GetCheckerVar('g', a:ft, a:ck, 'compiler_options', '') . ' ' . s:GetIncludeDirs(a:ft)
-
-    " check if the user manually set some cflags
-    let b_cflags = s:GetCheckerVar('b', a:ft, a:ck, 'cflags', '')
-    if b_cflags == ''
-        " check whether to search for include files at all
-        if !s:GetCheckerVar('g', a:ft, a:ck, 'no_include_search', 0)
-            if a:ft ==# 'c' || a:ft ==# 'cpp'
-                " refresh the include file search if desired
-                if s:GetCheckerVar('g', a:ft, a:ck, 'auto_refresh_includes', 0)
-                    let flags .= ' ' . s:SearchHeaders()
-                else
-                    " search for header includes if not cached already
-                    if !exists('b:syntastic_' . a:ft . '_includes')
-                        let b:syntastic_{a:ft}_includes = s:SearchHeaders()
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
                     endif
                     let flags .= ' ' . b:syntastic_{a:ft}_includes
                 endif
@@ -266,7 +169,6 @@ function! s:GetCflags(ft, ck, opts)
     endif
 
     " add optional config file parameters
-<<<<<<< HEAD
     let config_file = s:_getCheckerVar('g', a:ft, a:ck, 'config_file', '.syntastic_' . a:ft . '_config')
     let flags .= ' ' . syntastic#c#ReadConfig(config_file)
 
@@ -279,20 +181,6 @@ function! s:_getIncludeDirs(filetype) " {{{2
     let include_dirs = []
 
     if a:filetype =~# '\v^%(c|cpp|objc|objcpp)$' &&
-=======
-    let config_file = s:GetCheckerVar('g', a:ft, a:ck, 'config_file', '.syntastic_' . a:ft . '_config')
-    let flags .= ' ' . syntastic#c#ReadConfig(config_file)
-
-    return flags
-endfunction
-
-" get the gcc include directory argument depending on the default
-" includes and the optional user-defined 'g:syntastic_c_include_dirs'
-function! s:GetIncludeDirs(filetype)
-    let include_dirs = []
-
-    if a:filetype =~# '\v^%(c|cpp|d|objc|objcpp)$' &&
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
                 \ (!exists('g:syntastic_'.a:filetype.'_no_default_include_dirs') ||
                 \ !g:syntastic_{a:filetype}_no_default_include_dirs)
         let include_dirs = copy(s:default_includes)
@@ -302,21 +190,12 @@ function! s:GetIncludeDirs(filetype)
         call extend(include_dirs, g:syntastic_{a:filetype}_include_dirs)
     endif
 
-<<<<<<< HEAD
     return join(map(syntastic#util#unique(include_dirs), 'syntastic#util#shescape("-I" . v:val)'))
 endfunction " }}}2
 
 " search the first 100 lines for include statements that are
 " given in the handlers dictionary
 function! s:_searchHeaders() " {{{2
-=======
-    return join(map(syntastic#util#unique(include_dirs), 'syntastic#util#shescape(fnameescape("-I" . v:val))'), ' ')
-endfunction
-
-" search the first 100 lines for include statements that are
-" given in the handlers dictionary
-function! s:SearchHeaders()
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
     let includes = ''
     let files = []
     let found = []
@@ -346,11 +225,7 @@ function! s:SearchHeaders()
 
             try
                 let lines = readfile(filename, '', 100)
-<<<<<<< HEAD
             catch /\m^Vim\%((\a\+)\)\=:E484/
-=======
-            catch /^Vim\%((\a\+)\)\=:E484/
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
                 continue
             endtry
 
@@ -449,28 +324,9 @@ let s:default_includes = [
     \ '..' . syntastic#util#Slash() . 'include',
     \ '..' . syntastic#util#Slash() . 'includes' ]
 
-<<<<<<< HEAD
 call s:_init()
-=======
-" }}}1
-
-" default include directories
-let s:default_includes = [
-    \ '.',
-    \ '..',
-    \ 'include',
-    \ 'includes',
-    \ '..' . syntastic#util#Slash() . 'include',
-    \ '..' . syntastic#util#Slash() . 'includes' ]
-
-call s:Init()
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
 
-<<<<<<< HEAD
 " vim: set sw=4 sts=4 et fdm=marker:
-=======
-" vim: set et sts=4 sw=4 fdm=marker:
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f

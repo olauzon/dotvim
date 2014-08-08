@@ -33,15 +33,10 @@ function! SyntaxCheckers_cuda_nvcc_GetLocList() dict
         let arch_flag = ''
     endif
     let makeprg =
-<<<<<<< HEAD
         \ self.getExecEscaped() . ' ' . arch_flag .
         \ ' --cuda -O0 -I . -Xcompiler -fsyntax-only ' .
         \ syntastic#util#shexpand('%') . ' ' . syntastic#c#NullOutput()
 
-=======
-        \ 'nvcc ' . arch_flag . ' --cuda -O0 -I . -Xcompiler -fsyntax-only ' .
-        \ syntastic#util#shexpand('%') . ' ' . syntastic#c#NullOutput()
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
     let errorformat =
         \ '%*[^"]"%f"%*\D%l: %m,'.
         \ '"%f"%*\D%l: %m,'.
@@ -62,12 +57,8 @@ function! SyntaxCheckers_cuda_nvcc_GetLocList() dict
         if exists('g:syntastic_cuda_check_header')
             let makeprg =
                 \ 'echo > .syntastic_dummy.cu ; ' .
-<<<<<<< HEAD
                 \ self.getExecEscaped() . ' ' . arch_flag .
                 \ ' --cuda -O0 -I . .syntastic_dummy.cu -Xcompiler -fsyntax-only -include ' .
-=======
-                \ 'nvcc ' . arch_flag . ' --cuda -O0 -I . .syntastic_dummy.cu -Xcompiler -fsyntax-only -include ' .
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
                 \ syntastic#util#shexpand('%') . ' ' . syntastic#c#NullOutput()
         else
             return []

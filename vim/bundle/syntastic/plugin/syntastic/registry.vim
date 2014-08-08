@@ -6,7 +6,6 @@ let g:loaded_syntastic_registry = 1
 " Initialisation {{{1
 
 let s:defaultCheckers = {
-<<<<<<< HEAD
         \ 'actionscript':['mxmlc'],
         \ 'ada':         ['gcc'],
         \ 'applescript': ['osacompile'],
@@ -17,12 +16,6 @@ let s:defaultCheckers = {
         \ 'bemhtml':     ['bemhtmllint'],
         \ 'c':           ['gcc'],
         \ 'cabal':       ['cabal'],
-=======
-        \ 'ada':         ['gcc'],
-        \ 'applescript': ['osacompile'],
-        \ 'asciidoc':    ['asciidoc'],
-        \ 'c':           ['gcc'],
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
         \ 'chef':        ['foodcritic'],
         \ 'co':          ['coco'],
         \ 'cobol':       ['cobc'],
@@ -30,7 +23,6 @@ let s:defaultCheckers = {
         \ 'coq':         ['coqtop'],
         \ 'cpp':         ['gcc'],
         \ 'cs':          ['mcs'],
-<<<<<<< HEAD
         \ 'css':         ['csslint'],
         \ 'cucumber':    ['cucumber'],
         \ 'cuda':        ['nvcc'],
@@ -47,23 +39,6 @@ let s:defaultCheckers = {
         \ 'haml':        ['haml'],
         \ 'handlebars':  ['handlebars'],
         \ 'haskell':     ['ghc_mod', 'hdevtools', 'hlint'],
-=======
-        \ 'css':         ['csslint', 'phpcs'],
-        \ 'cucumber':    ['cucumber'],
-        \ 'cuda':        ['nvcc'],
-        \ 'd':           ['dmd'],
-        \ 'dart':        ['dart_analyzer'],
-        \ 'docbk':       ['xmllint'],
-        \ 'dustjs':      ['swiffer'],
-        \ 'elixir':      ['elixir'],
-        \ 'erlang':      ['escript'],
-        \ 'eruby':       ['ruby'],
-        \ 'fortran':     ['gfortran'],
-        \ 'go':          ['go'],
-        \ 'haml':        ['haml'],
-        \ 'handlebars':  ['handlebars'],
-        \ 'haskell':     ['ghc-mod', 'hdevtools', 'hlint'],
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
         \ 'haxe':        ['haxe'],
         \ 'hss':         ['hss'],
         \ 'html':        ['tidy'],
@@ -71,11 +46,8 @@ let s:defaultCheckers = {
         \ 'javascript':  ['jshint', 'jslint'],
         \ 'json':        ['jsonlint', 'jsonval'],
         \ 'less':        ['lessc'],
-<<<<<<< HEAD
         \ 'lex':         ['flex'],
         \ 'limbo':       ['limbo'],
-=======
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
         \ 'lisp':        ['clisp'],
         \ 'llvm':        ['llvm'],
         \ 'lua':         ['luac'],
@@ -85,7 +57,6 @@ let s:defaultCheckers = {
         \ 'objc':        ['gcc'],
         \ 'objcpp':      ['gcc'],
         \ 'ocaml':       ['camlp4o'],
-<<<<<<< HEAD
         \ 'perl':        ['perlcritic'],
         \ 'php':         ['php', 'phpcs', 'phpmd'],
         \ 'po':          ['msgfmt'],
@@ -104,30 +75,12 @@ let s:defaultCheckers = {
         \ 'tcl':         ['nagelfar'],
         \ 'tex':         ['lacheck', 'chktex'],
         \ 'texinfo':     ['makeinfo'],
-=======
-        \ 'perl':        ['perl', 'perlcritic'],
-        \ 'php':         ['php', 'phpcs', 'phpmd'],
-        \ 'pod':         ['podchecker'],
-        \ 'puppet':      ['puppet', 'puppetlint'],
-        \ 'python':      ['python', 'flake8', 'pylint'],
-        \ 'rst':         ['rst2pseudoxml'],
-        \ 'ruby':        ['mri'],
-        \ 'rust':        ['rustc'],
-        \ 'sass':        ['sass'],
-        \ 'scala':       ['fsc', 'scalac'],
-        \ 'scss':        ['sass', 'scss_lint'],
-        \ 'sh':          ['sh'],
-        \ 'slim':        ['slimrb'],
-        \ 'tcl':         ['nagelfar'],
-        \ 'tex':         ['lacheck', 'chktex'],
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
         \ 'text':        ['atdtool'],
         \ 'twig':        ['twiglint'],
         \ 'typescript':  ['tsc'],
         \ 'vala':        ['valac'],
         \ 'verilog':     ['verilator'],
         \ 'vhdl':        ['ghdl'],
-<<<<<<< HEAD
         \ 'vim':         ['vimlint'],
         \ 'xhtml':       ['tidy'],
         \ 'xml':         ['xmllint'],
@@ -137,15 +90,6 @@ let s:defaultCheckers = {
         \ 'z80':         ['z80syntaxchecker'],
         \ 'zpt':         ['zptlint'],
         \ 'zsh':         ['zsh', 'shellcheck']
-=======
-        \ 'xhtml':       ['tidy'],
-        \ 'xml':         ['xmllint'],
-        \ 'xslt':        ['xmllint'],
-        \ 'yaml':        ['jsyaml'],
-        \ 'z80':         ['z80syntaxchecker'],
-        \ 'zpt':         ['zptlint'],
-        \ 'zsh':         ['zsh']
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
     \ }
 lockvar! s:defaultCheckers
 
@@ -261,32 +205,7 @@ function! g:SyntasticRegistry.echoInfoFor(ftalias_list) " {{{2
     echomsg 'Currently enabled checker' . plural . ': ' . cklist
 endfunction " }}}2
 
-<<<<<<< HEAD
 " }}}1
-=======
-    return {}
-endfunction
-
-function! g:SyntasticRegistry.availableCheckersFor(ftalias)
-    let filetype = s:SyntasticRegistryNormaliseFiletype(a:ftalias)
-    let checkers = copy(self._allCheckersFor(filetype))
-    return self._filterCheckersByAvailability(checkers)
-endfunction
-
-function! g:SyntasticRegistry.echoInfoFor(ftalias_list)
-    echomsg "Syntastic info for filetype: " . join(a:ftalias_list, '.')
-
-    let available = []
-    let active = []
-    for ftalias in a:ftalias_list
-        call extend(available, self.availableCheckersFor(ftalias))
-        call extend(active, self.getActiveCheckers(ftalias))
-    endfor
-
-    echomsg "Available checker(s): " . join(syntastic#util#unique(map(available, "v:val.getName()")))
-    echomsg "Currently enabled checker(s): " . join(syntastic#util#unique(map(active, "v:val.getName()")))
-endfunction
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
 
 " Private methods {{{1
 

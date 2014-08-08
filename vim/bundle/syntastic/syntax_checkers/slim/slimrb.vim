@@ -18,20 +18,11 @@ let g:loaded_syntastic_slim_slimrb_checker = 1
 let s:save_cpo = &cpo
 set cpo&vim
 
-<<<<<<< HEAD
 function! SyntaxCheckers_slim_slimrb_GetLocList() dict
     if !exists('s:slimrb_new')
         let s:slimrb_new = syntastic#util#versionIsAtLeast(syntastic#util#getVersion(
             \ self.getExecEscaped() . ' --version 2>'. syntastic#util#DevNull()), [1, 3, 1])
     endif
-=======
-function! s:SlimrbVersion()
-    if !exists('s:slimrb_version')
-        let s:slimrb_version = syntastic#util#getVersion('slimrb --version 2>' . syntastic#util#DevNull())
-    endif
-    return s:slimrb_version
-endfunction
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
 
     let makeprg = self.makeprgBuild({ 'args_after': '-c' })
 

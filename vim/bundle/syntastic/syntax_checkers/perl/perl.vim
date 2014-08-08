@@ -11,7 +11,6 @@
 "
 "============================================================================
 "
-<<<<<<< HEAD
 " Security:
 "
 " This checker runs 'perl -c' against your file, which in turn executes
@@ -36,16 +35,6 @@
 " - g:syntastic_perl_lib_path (list; default: [])
 "   List of include directories to be added to the perl command line. Example:
 "
-=======
-" Checker options:
-"
-" - g:syntastic_perl_interpreter (string; default: 'perl')
-"   The perl interpreter to use.
-"
-" - g:syntastic_perl_lib_path (list; default: [])
-"   List of include directories to be added to the perl command line. Example:
-"
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
 "       let g:syntastic_perl_lib_path = [ './lib', './lib/auto' ]
 
 if exists('g:loaded_syntastic_perl_perl_checker')
@@ -53,18 +42,10 @@ if exists('g:loaded_syntastic_perl_perl_checker')
 endif
 let g:loaded_syntastic_perl_perl_checker = 1
 
-<<<<<<< HEAD
-=======
-if !exists('g:syntastic_perl_interpreter')
-    let g:syntastic_perl_interpreter = 'perl'
-endif
-
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
 if !exists('g:syntastic_perl_lib_path')
     let g:syntastic_perl_lib_path = []
 endif
 
-<<<<<<< HEAD
 let s:save_cpo = &cpo
 set cpo&vim
 
@@ -91,31 +72,6 @@ function! SyntaxCheckers_perl_perl_GetLocList() dict
         let includes = split(g:syntastic_perl_lib_path, ',')
     else
         let includes = copy(syntastic#util#var('perl_lib_path'))
-=======
-function! SyntaxCheckers_perl_perl_IsAvailable()
-    return executable(g:syntastic_perl_interpreter)
-endfunction
-
-function! SyntaxCheckers_perl_perl_Preprocess(errors)
-    let out = []
-
-    for e in a:errors
-        let parts = matchlist(e, '\v^(.*)\sat\s(.*)\sline\s(\d+)(.*)$')
-        if !empty(parts)
-            call add(out, parts[2] . ':' . parts[3] . ':' . parts[1] . parts[4])
-        endif
-    endfor
-
-    return syntastic#util#unique(out)
-endfunction
-
-function! SyntaxCheckers_perl_perl_GetLocList()
-    if type(g:syntastic_perl_lib_path) == type('')
-        call syntastic#util#deprecationWarn('variable g:syntastic_perl_lib_path should be a list')
-        let includes = split(g:syntastic_perl_lib_path, ',')
-    else
-        let includes = copy(exists('b:syntastic_perl_lib_path') ? b:syntastic_perl_lib_path : g:syntastic_perl_lib_path)
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
     endif
     let shebang = syntastic#util#parseShebang()
     let extra = join(map(includes, '"-I" . v:val')) .
@@ -123,47 +79,23 @@ function! SyntaxCheckers_perl_perl_GetLocList()
         \ (index(shebang['args'], '-t') >= 0 ? ' -t' : '')
     let errorformat = '%f:%l:%m'
 
-<<<<<<< HEAD
     let makeprg = self.makeprgBuild({ 'args_before': '-c -X ' . extra })
-=======
-    let makeprg = syntastic#makeprg#build({
-        \ 'exe': g:syntastic_perl_interpreter,
-        \ 'args': '-c -X ' . extra,
-        \ 'filetype': 'perl',
-        \ 'subchecker': 'perl' })
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
 
     let errors = SyntasticMake({
         \ 'makeprg': makeprg,
         \ 'errorformat': errorformat,
-<<<<<<< HEAD
         \ 'preprocess': 'perl',
-=======
-        \ 'preprocess': 'SyntaxCheckers_perl_perl_Preprocess',
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
         \ 'defaults': {'type': 'E'} })
     if !empty(errors)
         return errors
     endif
 
-<<<<<<< HEAD
     let makeprg = self.makeprgBuild({ 'args_before': '-c -Mwarnings ' . extra })
-=======
-    let makeprg = syntastic#makeprg#build({
-        \ 'exe': g:syntastic_perl_interpreter,
-        \ 'args': '-c -Mwarnings ' . extra,
-        \ 'filetype': 'perl',
-        \ 'subchecker': 'perl' })
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
 
     return SyntasticMake({
         \ 'makeprg': makeprg,
         \ 'errorformat': errorformat,
-<<<<<<< HEAD
         \ 'preprocess': 'perl',
-=======
-        \ 'preprocess': 'SyntaxCheckers_perl_perl_Preprocess',
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
         \ 'defaults': {'type': 'W'} })
 endfunction
 

@@ -40,32 +40,13 @@ function! SyntaxCheckers_javascript_jshint_GetLocList() dict
         \ '%A%f: line %l\, col %v\, %m \(%t%*\d\)' :
         \ '%E%f: line %l\, col %v\, %m'
 
-<<<<<<< HEAD
     call self.setWantSort(1)
-=======
-    let errorformat = jshint_new ?
-        \ '%A%f: line %l\, col %v\, %m \(%t%*\d\)' :
-        \ '%E%f: line %l\, col %v\, %m'
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
 
     return SyntasticMake({
         \ 'makeprg': makeprg,
         \ 'errorformat': errorformat,
-<<<<<<< HEAD
         \ 'defaults': {'bufnr': bufnr('')},
         \ 'returns': [0, 2] })
-=======
-        \ 'defaults': {'bufnr': bufnr('')} })
-endfunction
-
-function! s:JshintNew()
-    return syntastic#util#versionIsAtLeast(syntastic#util#getVersion(expand(g:syntastic_jshint_exec) . ' --version'), [1, 1])
-endfunction
-
-function! s:Args()
-    " node-jshint uses .jshintrc as config unless --config arg is present
-    return !empty(g:syntastic_javascript_jshint_conf) ? ' --config ' . g:syntastic_javascript_jshint_conf : ''
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
 endfunction
 
 call g:SyntasticRegistry.CreateAndRegisterChecker({

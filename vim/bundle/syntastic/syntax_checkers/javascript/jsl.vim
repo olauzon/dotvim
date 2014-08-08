@@ -17,16 +17,9 @@ let g:loaded_syntastic_javascript_jsl_checker = 1
 let s:save_cpo = &cpo
 set cpo&vim
 
-<<<<<<< HEAD
 function! SyntaxCheckers_javascript_jsl_GetLocList() dict
     call syntastic#log#deprecationWarn('javascript_jsl_conf', 'javascript_jsl_args',
         \ "'-conf ' . syntastic#util#shexpand(OLD_VAR)")
-=======
-function! s:ConfFlag()
-    if !empty(g:syntastic_javascript_jsl_conf)
-        return "-conf " . g:syntastic_javascript_jsl_conf
-    endif
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
 
     let makeprg = self.makeprgBuild({
         \ 'args_after': '-nologo -nofilelisting -nosummary -nocontext -process' })

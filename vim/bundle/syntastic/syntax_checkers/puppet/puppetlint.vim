@@ -21,15 +21,9 @@ set cpo&vim
 function! SyntaxCheckers_puppet_puppetlint_IsAvailable() dict
     return
         \ executable("puppet") &&
-<<<<<<< HEAD
         \ executable(self.getExec()) &&
         \ syntastic#util#versionIsAtLeast(syntastic#util#getVersion(
         \       self.getExecEscaped() . ' --version 2>' . syntastic#util#DevNull()), [0,1,10])
-=======
-        \ executable("puppet-lint") &&
-        \ syntastic#util#versionIsAtLeast(syntastic#util#getVersion('puppet-lint --version 2>' .
-        \     syntastic#util#DevNull()), [0,1,10])
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
 endfunction
 
 function! SyntaxCheckers_puppet_puppetlint_GetLocList() dict

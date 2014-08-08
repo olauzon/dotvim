@@ -23,15 +23,8 @@ function! SyntaxCheckers_python_flake8_GetLocList() dict
 
     let errorformat =
         \ '%E%f:%l: could not compile,%-Z%p^,' .
-<<<<<<< HEAD
         \ '%A%f:%l:%c: %t%n %m,' .
         \ '%A%f:%l: %t%n %m,' .
-=======
-        \ '%E%f:%l:%c: F%n %m,' .
-        \ '%W%f:%l:%c: C%n %m,' .
-        \ '%W%f:%l:%c: %.%n %m,' .
-        \ '%W%f:%l: %.%n %m,' .
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
         \ '%-G%.%#'
 
     let env = syntastic#util#isRunningWindows() ? {} : { 'TERM': 'dumb' }

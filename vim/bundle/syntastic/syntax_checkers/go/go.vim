@@ -48,27 +48,17 @@ function! SyntaxCheckers_go_go_GetLocList() dict
 
     " Test files, i.e. files with a name ending in `_test.go`, are not
     " compiled by `go build`, therefore `go test` must be called for those.
-<<<<<<< HEAD
     if match(expand('%'), '\m_test\.go$') == -1
         let makeprg = 'go build ' . syntastic#c#NullOutput()
         let cleanup = 0
     else
         let makeprg = 'go test -c ' . syntastic#c#NullOutput()
         let cleanup = 1
-=======
-    if match(expand('%'), '_test.go$') == -1
-        let makeprg = 'go build ' . syntastic#c#NullOutput()
-    else
-        let makeprg = 'go test -c ' . syntastic#c#NullOutput()
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
     endif
 
     " The first pattern is for warnings from C compilers.
     let errorformat =
-<<<<<<< HEAD
         \ '%W%f:%l: warning: %m,' .
-=======
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
         \ '%E%f:%l:%c:%m,' .
         \ '%E%f:%l:%m,' .
         \ '%C%\s%\+%m,' .

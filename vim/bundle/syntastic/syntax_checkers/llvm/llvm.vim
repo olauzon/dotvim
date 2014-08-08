@@ -18,17 +18,8 @@ let g:loaded_syntastic_llvm_llvm_checker = 1
 let s:save_cpo = &cpo
 set cpo&vim
 
-<<<<<<< HEAD
 function! SyntaxCheckers_llvm_llvm_GetLocList() dict
     let makeprg = self.makeprgBuild({ 'args_after': syntastic#c#NullOutput() })
-=======
-function! SyntaxCheckers_llvm_llvm_GetLocList()
-    let makeprg = syntastic#makeprg#build({
-        \ 'exe': 'llc',
-        \ 'args': syntastic#c#NullOutput(),
-        \ 'filetype': 'llvm',
-        \ 'subchecker': 'llvm' })
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
 
     let errorformat = 'llc: %f:%l:%c: %trror: %m'
 

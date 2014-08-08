@@ -118,15 +118,9 @@ endfunction " }}}2
 " Remove the signs with the given ids from this buffer
 function! g:SyntasticSignsNotifier._removeSigns(ids) " {{{2
     if has('signs')
-<<<<<<< HEAD
         for s in reverse(copy(a:ids))
             execute "sign unplace " . s
             call remove(self._bufSignIds(), index(self._bufSignIds(), s))
-=======
-        for i in a:ids
-            execute "sign unplace " . i
-            call remove(self._bufSignIds(), index(self._bufSignIds(), i))
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
         endfor
     endif
 endfunction " }}}2

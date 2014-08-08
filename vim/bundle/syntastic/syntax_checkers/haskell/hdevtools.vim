@@ -25,7 +25,6 @@ function! SyntaxCheckers_haskell_hdevtools_GetLocList() dict
         let g:syntastic_haskell_hdevtools_args = g:hdevtools_options
     endif
 
-<<<<<<< HEAD
     let makeprg = self.makeprgBuild({
         \ 'exe_after': 'check',
         \ 'fname': syntastic#util#shexpand('%:p') })
@@ -39,23 +38,6 @@ function! SyntaxCheckers_haskell_hdevtools_GetLocList() dict
         \ '%+C  %#%m,'.
         \ '%W%>%f:%l:%v:,'.
         \ '%+C  %#%tarning: %m,'
-=======
-function! SyntaxCheckers_haskell_hdevtools_GetLocList()
-    let makeprg = syntastic#makeprg#build({
-        \ 'exe': 'hdevtools check',
-        \ 'args': get(g:, 'hdevtools_options', ''),
-        \ 'filetype': 'haskell',
-        \ 'subchecker': 'hdevtools' })
-
-    let errorformat= '\%-Z\ %#,'.
-        \ '%W%f:%l:%c:\ Warning:\ %m,'.
-        \ '%W%f:%l:%c:\ Warning:,'.
-        \ '%E%f:%l:%c:\ %m,'.
-        \ '%E%>%f:%l:%c:,'.
-        \ '%+C\ \ %#%m,'.
-        \ '%W%>%f:%l:%c:,'.
-        \ '%+C\ \ %#%tarning:\ %m,'
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
 
     return SyntasticMake({
         \ 'makeprg': makeprg,

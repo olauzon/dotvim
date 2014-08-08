@@ -145,7 +145,6 @@ function! g:SyntasticLoclist.setName(name) " {{{2
     let self._name = a:name
 endfunction " }}}2
 
-<<<<<<< HEAD
 function! g:SyntasticLoclist.getOwner() " {{{2
     return self._owner
 endfunction " }}}2
@@ -153,21 +152,6 @@ endfunction " }}}2
 function! g:SyntasticLoclist.setOwner(buffer) " {{{2
     let self._owner = type(a:buffer) == type(0) ? a:buffer : str2nr(a:buffer)
 endfunction " }}}2
-=======
-function! g:SyntasticLoclist.decorate(name, filetype)
-    for e in self._rawLoclist
-        let e['text'] .= ' [' . a:filetype . '/' . a:name . ']'
-    endfor
-endfunction
-
-function! g:SyntasticLoclist.hasErrorsOrWarningsToDisplay()
-    if self._hasErrorsOrWarningsToDisplay >= 0
-        return self._hasErrorsOrWarningsToDisplay
-    endif
-    let self._hasErrorsOrWarningsToDisplay = empty(self._rawLoclist) ? 0 : (!self._quietWarnings || len(self.errors()))
-    return self._hasErrorsOrWarningsToDisplay
-endfunction
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
 
 function! g:SyntasticLoclist.deploy() " {{{2
     call self.setOwner(bufnr(''))
@@ -286,11 +270,7 @@ function! g:SyntasticLoclist.show() " {{{2
 
     if !self.isEmpty()
         let num = winnr()
-<<<<<<< HEAD
         execute "lopen " . syntastic#util#var('loc_list_height')
-=======
-        execute "lopen " . g:syntastic_loc_list_height
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
         if num != winnr()
             wincmd p
         endif

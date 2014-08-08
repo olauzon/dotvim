@@ -12,7 +12,6 @@
 if exists("g:loaded_syntastic_scss_scss_lint_checker")
     finish
 endif
-<<<<<<< HEAD
 let g:loaded_syntastic_scss_scss_lint_checker = 1
 
 let s:save_cpo = &cpo
@@ -33,33 +32,10 @@ function! SyntaxCheckers_scss_scss_lint_GetLocList() dict
         \ 'errorformat': errorformat,
         \ 'subtype': 'Style',
         \ 'returns': [0, 1, 65] })
-=======
-let g:loaded_syntastic_scss_scss_lint_checker=1
-
-function! SyntaxCheckers_scss_scss_lint_IsAvailable()
-    return executable('scss-lint')
-endfunction
-
-function! SyntaxCheckers_scss_scss_lint_GetLocList()
-    let makeprg = syntastic#makeprg#build({
-        \ 'exe': 'scss-lint',
-        \ 'filetype': 'scss',
-        \ 'subchecker': 'scss_lint' })
-
-    let errorformat = '%f:%l [%t] %m'
-
-    let loclist = SyntasticMake({
-        \ 'makeprg': makeprg,
-        \ 'errorformat': errorformat,
-        \ 'subtype': 'Style'})
-
-    return loclist
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
 endfunction
 
 call g:SyntasticRegistry.CreateAndRegisterChecker({
     \ 'filetype': 'scss',
-<<<<<<< HEAD
     \ 'name': 'scss_lint',
     \ 'exec': 'scss-lint' })
 
@@ -67,6 +43,3 @@ let &cpo = s:save_cpo
 unlet s:save_cpo
 
 " vim: set et sts=4 sw=4:
-=======
-    \ 'name': 'scss_lint'})
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f

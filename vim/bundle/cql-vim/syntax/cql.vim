@@ -46,9 +46,6 @@ syn keyword cqlKeyword          compression class sstable_compression
 " CQL 3 additions
 syn keyword cqlKeyword          clustering
 
-" CQL 3 additions
-syn keyword cqlKeyword          clustering
-
 " Keyspace options
 syn keyword cqlKeyword          placement_strategy strategy_options durable_writes replication_factor
 syn keyword cqlKeyword          strategy_class

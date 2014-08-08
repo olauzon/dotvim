@@ -24,26 +24,8 @@ if !exists("g:syntastic_java_checkstyle_conf_file")
     let g:syntastic_java_checkstyle_conf_file = 'sun_checks.xml'
 endif
 
-<<<<<<< HEAD
 let s:save_cpo = &cpo
 set cpo&vim
-=======
-function! SyntaxCheckers_java_checkstyle_IsAvailable()
-    return executable('java')
-endfunction
-
-function! SyntaxCheckers_java_checkstyle_Preprocess(errors)
-    let out = copy(a:errors)
-    for n in range(len(out))
-        let parts = matchlist(out[n], '\m\(.*<file name="\)\([^"]\+\)\(">.*\)')
-        if len(parts) >= 4
-            let parts[2] = syntastic#util#decodeXMLEntities(parts[2])
-            let out[n] = join(parts[1:3], '')
-        endif
-    endfor
-    return out
-endfunction
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
 
 function! SyntaxCheckers_java_checkstyle_GetLocList() dict
 
