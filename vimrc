@@ -135,9 +135,6 @@ let g:slime_target = "tmux"
 
 let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
 
-<<<<<<< HEAD
 set vb
-=======
 " Line height
 set linespace=3
->>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
