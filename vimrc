@@ -49,7 +49,9 @@ augroup myfiletypes
   autocmd BufNewFile,BufRead *.pig colorscheme bella
   autocmd BufNewFile,BufRead *.json_builder setf ruby
   autocmd BufNewFile,BufRead *.red setf ruby
+  autocmd BufNewFile,BufRead Vagrantfile setf ruby
   autocmd BufNewFile,BufRead *.erl set ai sw=4 sts=4 et
+  autocmd BufNewFile,BufRead *.swift set ai sw=4 sts=4 et
   autocmd BufNewFile,BufRead *.js set ft=javascript.jquery
   autocmd BufNewFile,Bufread *.json set ft=json
   autocmd BufNewFile,Bufread *.bones set ft=javascript
@@ -130,3 +132,7 @@ let vimclojure#HighlightBuiltins=1      " Highlight Clojure's builtins
 let vimclojure#ParenRainbow=1           " Rainbow parentheses'!
 
 let g:slime_target = "tmux"
+
+let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
+
+set vb

@@ -24,8 +24,11 @@ syn keyword cqlKeyword         on or primary reversed
 syn keyword cqlKeyword         select set truncate
 syn keyword cqlKeyword         where with update use using values
 
+" CQL 3 additions
+syn keyword cqlKeyword         table order by
 
-" Column family options
+
+" Column family/table options
 syn keyword cqlKeyword          comparator key_cache_size row_cache_size read_repair_chance
 syn keyword cqlKeyword          gc_grace_seconds default_validation min_compaction_threshold
 syn keyword cqlKeyword          max_compaction_threshold row_cache_save_period_in_seconds
@@ -35,8 +38,13 @@ syn keyword cqlKeyword          replication_on_write default_validation_class ke
 syn keyword cqlKeyword          rows_cached row_cache_save_period row_cache_keys_to_save keys_cached
 syn keyword cqlKeyword          column_type key_cache_save_period gc_grace replicate_on_write
 syn keyword cqlKeyword          row_cache_provider compaction_strategy column_metadata
-syn keyword cqlKeyword          column_name validation_class subcomparator
-syn keyword cqlKeyword          index_name index_type
+syn keyword cqlKeyword          column_name validation_class subcomparator replication
+syn keyword cqlKeyword          index_name index_type caching dclocal_read_repair_chance
+syn keyword cqlKeyword          bloom_filter_fp_chance populate_io_cache_on_flush compaction
+syn keyword cqlKeyword          compression class sstable_compression
+
+" CQL 3 additions
+syn keyword cqlKeyword          clustering
 
 " Keyspace options
 syn keyword cqlKeyword          placement_strategy strategy_options durable_writes replication_factor
@@ -69,7 +77,7 @@ syn keyword cqlType            SizeTieredCompactionStrategy LeveledCompactionStr
 
 " Variable Types
 syn keyword cqlType     bytea ascii text varchar uuid varint int bigint
-syn keyword cqlType     bytestype utf8type timeuuidtype
+syn keyword cqlType     bytestype utf8type timeuuidtype timeuuid timestamp
 syn keyword cqlType     blob boolean counter decimal double float
 syn keyword cqlType     serializingcacheprovider
 

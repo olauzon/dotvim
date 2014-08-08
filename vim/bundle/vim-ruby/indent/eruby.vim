@@ -19,6 +19,9 @@ else
 endif
 unlet! b:did_indent
 
+" Force HTML indent to not keep state.
+let b:html_indent_usestate = 0
+
 if &l:indentexpr == ''
   if &l:cindent
     let &l:indentexpr = 'cindent(v:lnum)'
@@ -52,6 +55,16 @@ function! GetErubyIndent(...)
     let ind = GetRubyIndent(v:lnum)
   else
     exe "let ind = ".b:eruby_subtype_indentexpr
+
+    " Workaround for Andy Wokula's HTML indent. This should be removed after
+    " some time, since the newest version is fixed in a different way.
+    if b:eruby_subtype_indentexpr =~# '^HtmlIndent('
+	  \ && exists('b:indent')
+	  \ && type(b:indent) == type({})
+	  \ && has_key(b:indent, 'lnum')
+      " Force HTML indent to not keep state
+      let b:indent.lnum = -1
+    endif
   endif
   let lnum = prevnonblank(v:lnum-1)
   let line = getline(lnum)
