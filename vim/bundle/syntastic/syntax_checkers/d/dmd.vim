@@ -24,6 +24,7 @@ if !exists('g:syntastic_d_compiler_options')
     let g:syntastic_d_compiler_options = ''
 endif
 
+<<<<<<< HEAD
 let s:save_cpo = &cpo
 set cpo&vim
 
@@ -41,6 +42,9 @@ function! SyntaxCheckers_d_dmd_GetLocList() dict
         call add(g:syntastic_d_include_dirs, './source')
     endif
 
+=======
+function! SyntaxCheckers_d_dmd_GetLocList()
+>>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
     return syntastic#c#GetLocList('d', 'dmd', {
         \ 'errorformat':
         \     '%-G%f:%s:,%f(%l): %m,' .

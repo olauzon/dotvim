@@ -10,6 +10,10 @@
 "
 "============================================================================
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
 if exists('g:loaded_syntastic_c_gcc_checker')
     finish
 endif
@@ -19,6 +23,7 @@ if !exists('g:syntastic_c_compiler_options')
     let g:syntastic_c_compiler_options = '-std=gnu99'
 endif
 
+<<<<<<< HEAD
 let s:save_cpo = &cpo
 set cpo&vim
 
@@ -30,6 +35,9 @@ function! SyntaxCheckers_c_gcc_IsAvailable() dict
 endfunction
 
 function! SyntaxCheckers_c_gcc_GetLocList() dict
+=======
+function! SyntaxCheckers_c_gcc_GetLocList()
+>>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
     return syntastic#c#GetLocList('c', 'gcc', {
         \ 'errorformat':
         \     '%-G%f:%s:,' .

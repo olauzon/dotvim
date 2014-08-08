@@ -18,9 +18,22 @@ let g:loaded_syntastic_co_coco_checker = 1
 let s:save_cpo = &cpo
 set cpo&vim
 
+<<<<<<< HEAD
 function! SyntaxCheckers_co_coco_GetLocList() dict
     let tmpdir = $TMPDIR != '' ? $TMPDIR : $TMP != '' ? $TMP : '/tmp'
     let makeprg = self.makeprgBuild({ 'args_after': '-c -o ' . tmpdir })
+=======
+function! SyntaxCheckers_co_coco_IsAvailable()
+    return executable('coco')
+endfunction
+
+function! SyntaxCheckers_co_coco_GetLocList()
+    let makeprg = syntastic#makeprg#build({
+        \ 'exe': 'coco',
+        \ 'args': '-c -o /tmp',
+        \ 'filetype': 'co',
+        \ 'subchecker': 'coco' })
+>>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
 
     let errorformat =
         \ '%EFailed at: %f,' .

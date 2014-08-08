@@ -27,7 +27,20 @@ function! SyntaxCheckers_yaml_jsyaml_GetLocList() dict
             \ syntastic#util#versionIsAtLeast(syntastic#util#getVersion(self.getExecEscaped() . ' --version'), [2])
     endif
 
+<<<<<<< HEAD
     let makeprg = self.makeprgBuild({ 'args_after': (s:js_yaml_new ? '' : '--compact') })
+=======
+function! SyntaxCheckers_yaml_jsyaml_GetLocList()
+    if !exists('s:js_yaml_new')
+        let s:js_yaml_new = syntastic#util#versionIsAtLeast(syntastic#util#getVersion('js-yaml --version'), [2])
+    endif
+
+    let makeprg = syntastic#makeprg#build({
+        \ 'exe': 'js-yaml',
+        \ 'args': s:js_yaml_new ? '' : '--compact',
+        \ 'filetype': 'yaml',
+        \ 'subchecker': 'jsyaml' })
+>>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
 
     let errorformat =
         \ 'Error on line %l\, col %c:%m,' .

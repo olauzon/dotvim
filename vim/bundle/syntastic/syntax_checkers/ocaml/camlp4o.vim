@@ -137,7 +137,11 @@ function! s:GetOtherMakeprg()
     if stridx(extension, 'mly') >= 0 && executable("menhir")
         " ocamlyacc output can't be redirected, so use menhir
         let makeprg = "menhir --only-preprocess " . syntastic#util#shexpand('%') . " >" . syntastic#util#DevNull()
+<<<<<<< HEAD
     elseif stridx(extension,'mll') >= 0 && executable("ocamllex")
+=======
+    elseif match(extension,'mll') >= 0 && executable("ocamllex")
+>>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
         let makeprg = "ocamllex -q " . syntastic#c#NullOutput() . " " . syntastic#util#shexpand('%')
     else
         let makeprg = "camlp4o " . syntastic#c#NullOutput() . " " . syntastic#util#shexpand('%')

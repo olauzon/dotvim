@@ -73,6 +73,7 @@ function! s:TidyEncOptByFenc()
 endfunction
 
 let s:ignore_errors = [
+<<<<<<< HEAD
         \ "<table> lacks \"summary\" attribute",
         \ "not approved by W3C",
         \ "<input> proprietary attribute \"placeholder\"",
@@ -137,6 +138,70 @@ let s:blocklevel_tags = [
         \ "figcaption"
     \ ]
 lockvar! s:blocklevel_tags
+=======
+                \ "<table> lacks \"summary\" attribute",
+                \ "not approved by W3C",
+                \ "<input> proprietary attribute \"placeholder\"",
+                \ "<meta> proprietary attribute \"charset\"",
+                \ "<meta> lacks \"content\" attribute",
+                \ "inserting \"type\" attribute",
+                \ "proprietary attribute \"data-",
+                \ "missing <!DOCTYPE> declaration",
+                \ "inserting implicit <body>",
+                \ "inserting missing 'title' element",
+                \ "unescaped & or unknown entity",
+                \ "<input> attribute \"type\" has invalid value",
+                \ "proprietary attribute \"role\"",
+                \ "proprietary attribute \"aria-activedescendant\"",
+                \ "proprietary attribute \"aria-atomic\"",
+                \ "proprietary attribute \"aria-autocomplete\"",
+                \ "proprietary attribute \"aria-busy\"",
+                \ "proprietary attribute \"aria-checked\"",
+                \ "proprietary attribute \"aria-controls\"",
+                \ "proprietary attribute \"aria-describedby\"",
+                \ "proprietary attribute \"aria-disabled\"",
+                \ "proprietary attribute \"aria-dropeffect\"",
+                \ "proprietary attribute \"aria-expanded\"",
+                \ "proprietary attribute \"aria-flowto\"",
+                \ "proprietary attribute \"aria-grabbed\"",
+                \ "proprietary attribute \"aria-haspopup\"",
+                \ "proprietary attribute \"aria-hidden\"",
+                \ "proprietary attribute \"aria-invalid\"",
+                \ "proprietary attribute \"aria-label\"",
+                \ "proprietary attribute \"aria-labelledby\"",
+                \ "proprietary attribute \"aria-level\"",
+                \ "proprietary attribute \"aria-live\"",
+                \ "proprietary attribute \"aria-multiline\"",
+                \ "proprietary attribute \"aria-multiselectable\"",
+                \ "proprietary attribute \"aria-orientation\"",
+                \ "proprietary attribute \"aria-owns\"",
+                \ "proprietary attribute \"aria-posinset\"",
+                \ "proprietary attribute \"aria-pressed\"",
+                \ "proprietary attribute \"aria-readonly\"",
+                \ "proprietary attribute \"aria-relevant\"",
+                \ "proprietary attribute \"aria-relevant\"",
+                \ "proprietary attribute \"aria-required\"",
+                \ "proprietary attribute \"aria-selected\"",
+                \ "proprietary attribute \"aria-setsize\"",
+                \ "proprietary attribute \"aria-sort\"",
+                \ "proprietary attribute \"aria-valuemax\"",
+                \ "proprietary attribute \"aria-valuemin\"",
+                \ "proprietary attribute \"aria-valuenow\"",
+                \ "proprietary attribute \"aria-valuetext\""
+                \ ]
+
+let s:blocklevel_tags = [
+                \ "main",
+                \ "section",
+                \ "article",
+                \ "aside",
+                \ "header",
+                \ "footer",
+                \ "nav",
+                \ "figure",
+                \ "figcaption"
+                \ ]
+>>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
 
 let s:inline_tags = [
         \ "video",

@@ -17,6 +17,7 @@
                                        \_____________________________________________/
 
 
+<<<<<<< HEAD
 - - -
 1\. [Introduction](#introduction)  
 2\. [Installation](#installation)  
@@ -45,6 +46,27 @@ and iOS property lists, Puppet, Python, Racket, R, reStructuredText, Ruby,
 SASS/SCSS, Scala, Slim, Tcl, TeX, Texinfo, Twig, TypeScript, Vala, Verilog,
 VHDL, VimL, xHtml, XML, XSLT, YACC, YAML, z80, Zope page templates, and zsh.
 See the [wiki][3] for details about the corresponding supported checkers.
+=======
+
+
+Syntastic is a syntax checking plugin that runs files through external syntax
+checkers and displays any resulting errors to the user. This can be done on
+demand, or automatically as files are saved. If syntax errors are detected, the
+user is notified and is happy because they didn't have to compile their code or
+execute their script to find them.
+
+At the time of this writing, syntax checking plugins exist for Ada,
+AppleScript, AsciiDoc, Bourne shell, C, C++, C#, Chef, CoffeeScript, Coco,
+Coq, CSS, Cucumber, CUDA, D, Dart, DocBook, Dust, Elixir, Erlang, eRuby,
+Fortran, Gentoo metadata, Go, Haml, Haskell, Haxe, Handlebars, HSS, HTML,
+Java, JavaScript, JSON, LESS, LISP, LLVM intermediate language, Lua, MATLAB,
+NASM, Objective-C, Objective-C++, OCaml, Perl, Perl POD, PHP, Puppet, Python,
+reStructuredText, Ruby, Rust, SASS/SCSS, Scala, Slim, Tcl, TeX, Twig,
+TypeScript, Vala, Verilog, VHDL, xHtml, XML, XSLT, YAML, z80, Zope page
+templates, zsh.
+
+## Screenshot
+>>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
 
 Below is a screenshot showing the methods that Syntastic uses to display syntax
 errors.  Note that, in practise, you will only have a subset of these methods
@@ -147,9 +169,13 @@ let g:syntastic_enable_perl_checker = 1
 
 __Q. What happened to the `rustc` checker?__
 
+<<<<<<< HEAD
 A. It has been included in the [Rust compiler package][12].  If you have
 a recent version of the Rust compiler, the checker should be picked up
 automatically by syntastic.
+=======
+e.g. Previously there was `g:syntastic_phpcs_conf`, now you must use `g:syntastic_php_phpcs_args`. This completely overrides the arguments of the checker, including any defaults, so you may need to look up the default arguments of the checker and add these in.
+>>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
 
 <a name="faqloclist"></a>
 
@@ -249,6 +275,7 @@ mappings (among other things).
 
 __Q. A syntax checker is giving me unwanted/strange style tips?__
 
+<<<<<<< HEAD
 A. Some filetypes (e.g. php) have style checkers as well as syntax
 checkers. You can usually configure the options that are passed to the style
 checkers, or just disable them. Take a look at the [wiki][3] to see what
@@ -262,6 +289,9 @@ let g:syntastic_quiet_messages = { "type": "style" }
 See `:help syntastic_quiet_messages` for details.
 
 <a name="faqbdelete"></a>
+=======
+A. Some filetypes (e.g. php) have style checkers as well as syntax checkers. You can usually configure the options that are passed to the style checkers, or just disable them. Take a look at the [wiki](https://github.com/scrooloose/syntastic/wiki/Syntax-Checkers) to see what options are available.
+>>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
 
 __Q. The error window is closed automatically when I :quit the current buffer
 but not when I :bdelete it?__

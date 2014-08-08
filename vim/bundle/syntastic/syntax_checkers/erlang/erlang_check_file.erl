@@ -6,7 +6,11 @@ main([FileName]) ->
                filelib:wildcard("{apps,deps,lib}/*/{ebin,include}")),
     compile(FileName, LibDirs);
 
+<<<<<<< HEAD
 main([FileName, "-rebar", Path, LibDirs]) ->
+=======
+main([FileName | ["-rebar" | [Path | LibDirs]]]) ->
+>>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
     {ok, L} = file:consult(Path),
     P = dict:from_list(L),
     Root = filename:dirname(Path),
@@ -32,7 +36,11 @@ main([FileName, "-rebar", Path, LibDirs]) ->
     %io:format("~p~n", [LibDirs1]),
     compile(FileName, LibDirs1);
 
+<<<<<<< HEAD
 main([FileName, LibDirs]) ->
+=======
+main([FileName | LibDirs]) ->
+>>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
     compile(FileName, LibDirs).
 
 compile(FileName, LibDirs) ->

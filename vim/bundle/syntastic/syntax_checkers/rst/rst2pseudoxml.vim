@@ -51,6 +51,13 @@ function! SyntaxCheckers_rst_rst2pseudoxml_GetLocList() dict
     return loclist
 endfunction
 
+<<<<<<< HEAD
+=======
+function! s:exe()
+    return executable("rst2pseudoxml.py") ? "rst2pseudoxml.py" : "rst2pseudoxml"
+endfunction
+
+>>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
 call g:SyntasticRegistry.CreateAndRegisterChecker({
     \ 'filetype': 'rst',
     \ 'name': 'rst2pseudoxml',

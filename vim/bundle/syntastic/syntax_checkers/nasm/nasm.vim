@@ -18,11 +18,21 @@ let g:loaded_syntastic_nasm_nasm_checker = 1
 let s:save_cpo = &cpo
 set cpo&vim
 
+<<<<<<< HEAD
 function! SyntaxCheckers_nasm_nasm_GetLocList() dict
     let makeprg = self.makeprgBuild({
         \ 'args_after': '-X gnu -f elf' .
         \       ' -I ' . syntastic#util#shescape(expand("%:p:h") . "/") .
         \       ' ' . syntastic#c#NullOutput() })
+=======
+function! SyntaxCheckers_nasm_nasm_GetLocList()
+    let wd = syntastic#util#shescape(expand("%:p:h") . "/")
+    let makeprg = syntastic#makeprg#build({
+        \ 'exe': 'nasm',
+        \ 'args': '-X gnu -f elf -I ' . wd . ' ' . syntastic#c#NullOutput(),
+        \ 'filetype': 'nasm',
+        \ 'subchecker': 'nasm' })
+>>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
 
     let errorformat = '%f:%l: %t%*[^:]: %m'
 

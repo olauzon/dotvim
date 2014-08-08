@@ -20,8 +20,17 @@ let g:loaded_syntastic_tcl_nagelfar_checker = 1
 let s:save_cpo = &cpo
 set cpo&vim
 
+<<<<<<< HEAD
 function! SyntaxCheckers_tcl_nagelfar_GetLocList() dict
     let makeprg = self.makeprgBuild({ 'args_after': '-H' })
+=======
+function! SyntaxCheckers_tcl_nagelfar_GetLocList()
+    let makeprg = syntastic#makeprg#build({
+        \ 'exe': 'nagelfar',
+        \ 'args': '-H',
+        \ 'filetype': 'tcl',
+        \ 'subchecker': 'nagelfar' })
+>>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
 
     let errorformat =
         \ '%I%f: %l: N %m,'.

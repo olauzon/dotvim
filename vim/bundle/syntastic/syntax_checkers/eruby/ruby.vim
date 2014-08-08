@@ -29,7 +29,11 @@ function! SyntaxCheckers_eruby_ruby_GetLocList() dict
     let fname = "'" . escape(expand('%'), "\\'") . "'"
 
     " TODO: encodings became useful in ruby 1.9 :)
+<<<<<<< HEAD
     if syntastic#util#versionIsAtLeast(syntastic#util#getVersion(self.getExecEscaped(). ' --version'), [1, 9])
+=======
+    if syntastic#util#versionIsAtLeast(syntastic#util#getVersion('ruby --version'), [1, 9])
+>>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
         let enc = &fileencoding != '' ? &fileencoding : &encoding
         let encoding_spec = ', :encoding => "' . (enc ==? 'utf-8' ? 'UTF-8' : 'BINARY') . '"'
     else

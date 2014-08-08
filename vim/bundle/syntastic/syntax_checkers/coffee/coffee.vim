@@ -21,10 +21,16 @@ let g:loaded_syntastic_coffee_coffee_checker = 1
 let s:save_cpo = &cpo
 set cpo&vim
 
+<<<<<<< HEAD
 function! SyntaxCheckers_coffee_coffee_IsAvailable() dict
     return executable(self.getExec()) &&
         \ syntastic#util#versionIsAtLeast(syntastic#util#getVersion(
         \       self.getExecEscaped() . ' --version 2>' . syntastic#util#DevNull()), [1,6,2])
+=======
+function! SyntaxCheckers_coffee_coffee_IsAvailable()
+    return executable("coffee") &&
+        \ syntastic#util#versionIsAtLeast(syntastic#util#getVersion('coffee --version 2>' . syntastic#util#DevNull()), [1,6,2])
+>>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
 endfunction
 
 function! SyntaxCheckers_coffee_coffee_GetLocList() dict

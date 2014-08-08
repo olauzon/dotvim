@@ -18,8 +18,17 @@ let g:loaded_syntastic_asciidoc_asciidoc_checker = 1
 let s:save_cpo = &cpo
 set cpo&vim
 
+<<<<<<< HEAD
 function! SyntaxCheckers_asciidoc_asciidoc_GetLocList() dict
     let makeprg = self.makeprgBuild({ 'args_after': syntastic#c#NullOutput() })
+=======
+function! SyntaxCheckers_asciidoc_asciidoc_GetLocList()
+    let makeprg = syntastic#makeprg#build({
+        \ 'exe': 'asciidoc',
+        \ 'args': syntastic#c#NullOutput(),
+        \ 'filetype': 'asciidoc',
+        \ 'subchecker': 'asciidoc' })
+>>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
 
     let errorformat =
         \ '%Easciidoc: %tRROR: %f: line %l: %m,' .

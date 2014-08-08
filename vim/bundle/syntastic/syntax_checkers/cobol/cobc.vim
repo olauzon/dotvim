@@ -16,6 +16,7 @@ if exists('g:loaded_syntastic_cobol_cobc_checker')
 endif
 let g:loaded_syntastic_cobol_cobc_checker = 1
 
+<<<<<<< HEAD
 if !exists('g:syntastic_cobol_compiler_options')
     let g:syntastic_cobol_compiler_options = ''
 endif
@@ -31,6 +32,24 @@ function! SyntaxCheckers_cobol_cobc_IsAvailable() dict
 endfunction
 
 function! SyntaxCheckers_cobol_cobc_GetLocList() dict
+=======
+if !exists('g:syntastic_cobol_compiler')
+    let g:syntastic_cobol_compiler = 'cobc'
+endif
+
+function! SyntaxCheckers_cobol_cobc_IsAvailable()
+    return executable(g:syntastic_cobol_compiler)
+endfunction
+
+let s:save_cpo = &cpo
+set cpo&vim
+
+if !exists('g:syntastic_cobol_compiler_options')
+    let g:syntastic_cobol_compiler_options = ''
+endif
+
+function! SyntaxCheckers_cobol_cobc_GetLocList()
+>>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
     return syntastic#c#GetLocList('cobol', 'cobc', {
         \ 'errorformat': '%f:%l: %trror: %m',
         \ 'main_flags': '-fsyntax-only' })
@@ -38,7 +57,11 @@ endfunction
 
 call g:SyntasticRegistry.CreateAndRegisterChecker({
     \ 'filetype': 'cobol',
+<<<<<<< HEAD
     \ 'name': 'cobc' })
+=======
+    \ 'name': 'cobc'})
+>>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
 
 let &cpo = s:save_cpo
 unlet s:save_cpo

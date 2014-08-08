@@ -20,11 +20,15 @@
 CONTENTS                                                  *syntastic-contents*
 
     1.Intro........................................|syntastic-intro|
+<<<<<<< HEAD
         1.1.Quick start............................|syntastic-quickstart|
+=======
+>>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
     2.Functionality provided.......................|syntastic-functionality|
         2.1.The statusline flag....................|syntastic-statusline-flag|
         2.2.Error signs............................|syntastic-error-signs|
         2.3.Error window...........................|syntastic-error-window|
+<<<<<<< HEAD
         2.4.Error highlighting.....................|syntastic-highlighting|
         2.5.Aggregating errors.....................|syntastic-aggregating-errors|
         2.6.Filtering errors.......................|syntastic-filtering-errors|
@@ -44,6 +48,15 @@ CONTENTS                                                  *syntastic-contents*
         6.7.Using syntastic with the fizsh shell...|syntastic-fizsh|
         6.8.Interaction with Eclim.................|syntastic-eclim|
         6.9.Interaction with vim-virtualenv........|syntastic-vim-virtualenv|
+=======
+    3.Commands.....................................|syntastic-commands|
+    4.Global Options...............................|syntastic-global-options|
+    5.Checker Options..............................|syntastic-checker-options|
+    6.Notes........................................|syntastic-notes|
+        6.1.Handling of composite filetypes........|syntastic-composite|
+        6.2.Interaction with python-mode...........|syntastic-pymode|
+        6.3.Interaction with the fish shell........|syntastic-fish|
+>>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
     7.About........................................|syntastic-about|
     8.License......................................|syntastic-license|
 
@@ -301,6 +314,20 @@ over warnings), then they are sorted by column number.  If you want to leave
 messages grouped by checker output, set this variable to 0. >
     let g:syntastic_sort_aggregated_errors = 0
 <
+<<<<<<< HEAD
+=======
+
+                                                     *'syntastic_id_checkers'*
+Default: 1
+When results from multiple checkers are aggregated in a single error list
+(that is either when |syntastic_aggregate_errors| is enabled, or when checking
+a file with a composite filetype), it might not be immediately obvious which
+checker has produced a given error message. This variable instructs syntastic
+to label error messages with the names of the checkers that created them. >
+    let g:syntastic_id_checkers=0
+<
+
+>>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
                                               *'syntastic_echo_current_error'*
 Default: 1
 If enabled, syntastic will echo current error to the command window. If
@@ -416,6 +443,15 @@ Composite filetypes can also be mapped to simple types, which disables the
 default behaviour of running both checkers against the input file: >
     let g:syntastic_filetype_map = { "handlebars.html": "handlebars" }
 <
+<<<<<<< HEAD
+=======
+
+Composite filetypes can also be mapped to simple types, which disables the
+default behaviour of running both checkers against the input file: >
+    let g:syntastic_filetype_map = { 'handlebars.html': 'handlebars' }
+<
+
+>>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
                                                         *'syntastic_mode_map'*
 Default: { "mode": "active",
            "active_filetypes": [],
@@ -525,6 +561,16 @@ Controls whether syntastic calls |:redraw| or |:redraw!| for screen redraws.
 Changing it can in principle make screen redraws smoother, but it can also
 cause screen to flicker, or cause ghost characters. Leaving it to the default
 should be safe.
+<<<<<<< HEAD
+=======
+
+                                                 *'syntastic_delayed_redraws'*
+Default: 0
+On older Vims, calling redraw when a popup menu is visible can cause Vim to
+segfault. If your version of Vim is affected, the solution is of course to
+upgrade Vim. If upgrading is not immediately feasible however, setting this
+variable to 1 might help, by delaying redraws until they are safe.
+>>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
 
                                                            *'syntastic_debug'*
 Default: 0
@@ -741,6 +787,7 @@ this writing there are several reports that 'Eclim' triggers a bug in Vim that
 makes syntastic forget some of its configuration parameters. No solutions or
 workarounds are known for now.
 
+<<<<<<< HEAD
 ------------------------------------------------------------------------------
 6.9. Interaction with vim-virtualenv                *syntastic-vim-virtualenv*
 
@@ -750,15 +797,68 @@ https://github.com/jmcantrell/vim-virtualenv).  This is a limitation of
 'vim-virtualenv'.
 
 ==============================================================================
+=======
+For checkers that do not use the 'syntastic#makeprg#build()' function you
+will have to look at the source code of the checker in question. If there are
+specific options that can be set, these are usually documented in the wiki:
+
+    https://github.com/scrooloose/syntastic/wiki/Syntaxcheckers
+
+==============================================================================
+6. Notes                                                     *syntastic-notes*
+
+------------------------------------------------------------------------------
+6.1. Handling of composite filetypes                     *syntastic-composite*
+
+Some Vim plugins use composite filetypes, such as 'django.python' or
+'handlebars.html'. Normally, syntastic deals with this situation by splitting
+the filetype in its simple components, and calling all checkers that apply.
+If this behaviour is not desirable, you can disable it by mapping the
+composite filetypes to a simple ones using |syntastic_filetype_map|, e.g.: >
+    let g:syntastic_filetype_map = { 'handlebars.html': 'handlebars' }
+<
+
+------------------------------------------------------------------------------
+6.2 Interaction with python-mode                            *syntastic-pymode*
+
+Syntastic can be used along with the 'python-mode' Vim plugin (see
+https://github.com/klen/python-mode). However, they both run syntax checks by
+default when you save buffers to disk, and this is probably not what you want.
+To avoid both plugins opening error windows, you can either set passive mode
+for python in syntastic (see |syntastic_mode_map|), or disable lint checks in
+python-mode, by setting |pymode_lint_write| to 0. E.g.: >
+    let g:pymode_lint_write = 0
+<
+
+------------------------------------------------------------------------------
+6.3 Interaction with the fish shell                           *syntastic-fish*
+
+At the time of this writing the 'fish' shell (see http://fishshell.com/)
+doesn't support the standard UNIX syntax for file redirections, and thus it
+can't be used together with syntastic. You don't need to change your login
+shell to address this problem, but you do have to point Vim's 'shell' to a more
+traditional shell, such as 'zsh', 'bash', 'ksh', or even the original Bourne
+'sh': >
+    set shell = 'bash'
+<
+
+==============================================================================
+>>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
 7. About                                                     *syntastic-about*
 
 The core maintainers of syntastic are:
     Martin Grenfell (github: scrooloose)
     Gregor Uhlenheuer (github: kongo2002)
     LCD 047 (github: lcd047)
+<<<<<<< HEAD
 
 Find the latest version of syntastic at:
 
+=======
+
+Find the latest version of syntastic here:
+
+>>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
     http://github.com/scrooloose/syntastic
 
 ==============================================================================

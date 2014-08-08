@@ -19,6 +19,10 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 function! SyntaxCheckers_lua_luac_GetHighlightRegex(pos)
+<<<<<<< HEAD
+=======
+    let near = matchstr(a:pos['text'], "\\mnear '[^']\\+'")
+>>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
     let result = ''
     let near = matchstr(a:pos['text'], '\mnear ''\zs[^'']\+\ze''')
     if near != ''
@@ -28,7 +32,17 @@ function! SyntaxCheckers_lua_luac_GetHighlightRegex(pos)
             let a:pos['col'] = p[2]
             let result = '\%' . p[2] . 'c'
         else
+<<<<<<< HEAD
             let result = '\V' . escape(near, '\')
+=======
+            let result = '\V'.near
+        endif
+        let open = matchstr(a:pos['text'], "\\m(to close '[^']\\+' at line [0-9]\\+)")
+        if len(open) > 0
+            let oline = split(open, "'")[1:2]
+            let line = 0+strpart(oline[1], 9)
+            call matchadd('SpellCap', '\%'.line.'l\V'.oline[0])
+>>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
         endif
 
         " XXX the following piece of code is evil, and is likely to break

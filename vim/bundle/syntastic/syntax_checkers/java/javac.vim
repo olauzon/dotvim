@@ -47,7 +47,11 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 function! s:CygwinPath(path)
+<<<<<<< HEAD
     return substitute(system('cygpath -m ' . syntastic#util#shescape(a:path)), "\n", '', 'g')
+=======
+    return substitute(system("cygpath -m ".a:path), '\m\%x00', '', 'g')
+>>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
 endfunction
 
 if !exists('g:syntastic_java_javac_temp_dir')
@@ -218,7 +222,11 @@ endfunction
 
 function! s:GetMavenProperties()
     let mvn_properties = {}
+<<<<<<< HEAD
     let pom = findfile('pom.xml', '.;')
+=======
+    let pom = findfile("pom.xml", ".;")
+>>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
     if s:has_maven && filereadable(pom)
         if !has_key(g:syntastic_java_javac_maven_pom_properties, pom)
             let mvn_cmd = syntastic#util#shexpand(g:syntastic_java_maven_executable) .
@@ -236,7 +244,11 @@ function! s:GetMavenProperties()
                     let matches = matchlist(line, '\m^\s*</\([a-zA-Z0-9\-\.]\+\)>\s*$')
                     if !empty(matches)
                         let mvn_is_managed_tag = index(g:syntastic_java_javac_maven_pom_tags, matches[1]) < 0
+<<<<<<< HEAD
                         let current_path  = substitute(current_path, '\m\.' . matches[1] . '$', '', '')
+=======
+                        let current_path  = substitute(current_path, '\m\.' . matches[1] . "$", '', '')
+>>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
                     else
                         let matches = matchlist(line, '\m^\s*<\([a-zA-Z0-9\-\.]\+\)>\(.\+\)</[a-zA-Z0-9\-\.]\+>\s*$')
                         if mvn_is_managed_tag && !empty(matches)
@@ -259,7 +271,11 @@ if g:syntastic_java_javac_config_file_enabled
 endif
 
 function! s:GetMavenClasspath()
+<<<<<<< HEAD
     let pom = findfile('pom.xml', '.;')
+=======
+    let pom = findfile("pom.xml", ".;")
+>>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
     if s:has_maven && filereadable(pom)
         if !has_key(g:syntastic_java_javac_maven_pom_ftime, pom) || g:syntastic_java_javac_maven_pom_ftime[pom] != getftime(pom)
             let mvn_cmd = syntastic#util#shexpand(g:syntastic_java_maven_executable) .
@@ -301,6 +317,7 @@ function! s:GetMavenClasspath()
     return ''
 endfunction
 
+<<<<<<< HEAD
 function! SyntaxCheckers_java_javac_IsAvailable() dict
     let s:has_maven = executable(expand(g:syntastic_java_maven_executable))
     return executable(expand(g:syntastic_java_javac_executable))
@@ -308,6 +325,15 @@ endfunction
 
 function! s:MavenOutputDirectory()
     let pom = findfile('pom.xml', '.;')
+=======
+function! SyntaxCheckers_java_javac_IsAvailable()
+    let s:has_maven = executable(g:syntastic_java_maven_executable)
+    return executable(g:syntastic_java_javac_executable)
+endfunction
+
+function! s:MavenOutputDirectory()
+    let pom = findfile("pom.xml", ".;")
+>>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
     if s:has_maven && filereadable(pom)
         let mvn_properties = s:GetMavenProperties()
         let output_dir = getcwd()
@@ -371,7 +397,11 @@ function! SyntaxCheckers_java_javac_GetLocList() dict
 
     if s:has_maven && g:syntastic_java_javac_autoload_maven_classpath
         if !g:syntastic_java_javac_delete_output
+<<<<<<< HEAD
             let javac_opts .= ' -d ' . syntastic#util#shescape(s:MavenOutputDirectory())
+=======
+            let javac_opts .= ' -d ' . s:MavenOutputDirectory()
+>>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
         endif
         let javac_classpath = s:AddToClasspath(javac_classpath, s:GetMavenClasspath())
     endif

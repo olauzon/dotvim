@@ -36,8 +36,13 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 function! SyntaxCheckers_vala_valac_GetHighlightRegex(pos)
+<<<<<<< HEAD
     let length = strlen(matchstr(a:pos['text'], '\m\^\+$'))
     return '\%>' . (a:pos['col'] - 1) . 'c\%<' . (a:pos['col'] + length) . 'c'
+=======
+    let strlength = strlen(matchstr(a:pos['text'], '\m\^\+$'))
+    return '\%>' . (a:pos.col-1) . 'c.*\%<' . (a:pos.col+strlength+1) . 'c'
+>>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
 endfunction
 
 function! s:GetValaModules()

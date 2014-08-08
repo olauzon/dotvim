@@ -76,13 +76,31 @@ function! s:ForwardToZshChecker()
     else
         return []
     endif
+<<<<<<< HEAD
+=======
+
+    let makeprg = syntastic#makeprg#build({
+        \ 'exe': s:GetShell(),
+        \ 'args': '-n',
+        \ 'filetype': 'sh',
+        \ 'subchecker': 'sh' })
+
+    let errorformat = '%f: line %l: %m'
+
+    return SyntasticMake({
+        \ 'makeprg': makeprg,
+        \ 'errorformat': errorformat })
+>>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
 endfunction
 
 call g:SyntasticRegistry.CreateAndRegisterChecker({
     \ 'filetype': 'sh',
     \ 'name': 'sh' })
+<<<<<<< HEAD
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
 
 " vim: set et sts=4 sw=4:
+=======
+>>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f

@@ -36,8 +36,20 @@ function! SyntaxCheckers_ruby_jruby_GetLocList() dict
 
     return SyntasticMake({
         \ 'makeprg': makeprg,
+<<<<<<< HEAD
         \ 'errorformat': errorformat,
         \ 'env': env })
+=======
+        \ 'errorformat': errorformat })
+endfunction
+
+function! s:args()
+    return has('win32') ? '-W1 -T1 -c' : '-W1 -c'
+endfunction
+
+function! s:exe()
+    return has('win32') ? 'jruby' : 'RUBYOPT= jruby'
+>>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
 endfunction
 
 call g:SyntasticRegistry.CreateAndRegisterChecker({

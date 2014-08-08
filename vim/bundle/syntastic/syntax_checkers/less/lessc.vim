@@ -30,8 +30,16 @@ if !exists("g:syntastic_less_use_less_lint")
     let g:syntastic_less_use_less_lint = 0
 endif
 
+<<<<<<< HEAD
 let s:save_cpo = &cpo
 set cpo&vim
+=======
+if g:syntastic_less_use_less_lint
+    let s:check_file = 'node ' . expand('<sfile>:p:h') . '/less-lint.js'
+else
+    let s:check_file = 'lessc'
+endif
+>>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
 
 let s:node_file = 'node ' . syntastic#util#shescape(expand('<sfile>:p:h') . syntastic#util#Slash() . 'less-lint.js')
 

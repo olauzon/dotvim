@@ -17,8 +17,14 @@ let g:loaded_syntastic_c_checkpatch_checker = 1
 let s:save_cpo = &cpo
 set cpo&vim
 
+<<<<<<< HEAD
 function! SyntaxCheckers_c_checkpatch_IsAvailable() dict
     call syntastic#log#deprecationWarn('c_checker_checkpatch_location', 'c_checkpatch_exe')
+=======
+function! SyntaxCheckers_c_checkpatch_IsAvailable()
+    return exists("g:syntastic_c_checker_checkpatch_location")
+endfunction
+>>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
 
     if !exists('g:syntastic_c_checkpatch_exe') && !executable(self.getExec())
         if executable('checkpatch')

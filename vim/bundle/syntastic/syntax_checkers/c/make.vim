@@ -15,6 +15,13 @@ if exists('g:loaded_syntastic_c_make_checker')
 endif
 let g:loaded_syntastic_c_make_checker = 1
 
+<<<<<<< HEAD
+=======
+function! SyntaxCheckers_c_make_IsAvailable()
+    return executable('make')
+endfunction
+
+>>>>>>> f24ec72a6085dd713351d2e4a5d3c117f245596f
 let s:save_cpo = &cpo
 set cpo&vim
 
