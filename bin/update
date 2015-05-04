@@ -25,21 +25,25 @@ git_bundles = [
   "git://github.com/Raimondi/delimitMate.git",
   "git://github.com/godlygeek/tabular.git",
   "git://github.com/vim-scripts/greplace.vim.git",
-#  "git://github.com/hallettj/jslint.vim.git",
+  "git://github.com/hallettj/jslint.vim.git",
   "git://github.com/altercation/vim-colors-solarized.git",
 #  "git://github.com/digitaltoad/vim-jade.git",
 #  "git://github.com/vim-scripts/omlet.vim.git",
   "git://github.com/kchmck/vim-coffee-script.git",
   "git://github.com/vim-scripts/octave.vim--.git",
   "git://github.com/vim-scripts/Color-Sampler-Pack.git",
-#  "git://github.com/vim-scripts/VimClojure.git",
+  "git://github.com/vim-scripts/VimClojure.git",
 #  "git://github.com/Rip-Rip/clang_complete.git",
 #  "git://github.com/juvenn/mustache.vim.git",
   "git://github.com/kien/ctrlp.vim.git",
 #  "git://github.com/jpalardy/vim-slime.git",
   "git://github.com/elubow/cql-vim.git",
   "git://github.com/msanders/cocoa.vim.git",
-  "git://github.com/toyamarinyon/vim-swift.git"
+  "git://github.com/toyamarinyon/vim-swift.git",
+  "git://github.com/lfe/vim-lfe.git",
+  "git://github.com/tpope/vim-fireplace.git",
+  "git://github.com/wting/rust.vim.git",
+  "git://github.com/cespare/vim-toml.git"
 ]
 
 vim_org_scripts = [
